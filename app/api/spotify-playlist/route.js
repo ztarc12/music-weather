@@ -31,6 +31,7 @@ async function getSpotifyToken() {
 export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const weatherQuery = searchParams.get('weather') || '맑은 날'
+  const offset = searchParams.get('offset')
   const market = 'KR'
 
   try {
@@ -38,10 +39,10 @@ export async function GET(req) {
 
     const response = await axios.get('https://api.spotify.com/v1/search', {
       params: {
-        q: weatherQuery,
+        q: `${weatherQuery} 한국`,
         type: 'playlist',
         market: market,
-        limit: 15
+        limit: 8
       },
       headers: {
         Authorization: `Bearer ${token}`

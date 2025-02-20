@@ -9,22 +9,22 @@ export default function PlaylistArtists({ forecast }){
   if (loading) return <p>가수를 불러오는 중...</p>
   if (!artists || artists.length === 0) return <p>플레이리스트에 아티스트 정보가 없습니다.</p>
   return (
-    <div>
+    <div className="artists-cont">
       <h2 className="content-title">
-        어떤 가수가 노래를 불렀을까요?
+        관련된 노래를 누가 불렀을까요?
       </h2>
-      <div>
+      <ul className="artists-container">
         {artists.map((artist)=>{
-          return (
-            <div key={artist.id}>
-              <img src={artist.images?.[0]?.url || "/default-artist.png"} alt={artist.name}/>
-              <div>
-                <h3>{artist.name}</h3>
-              </div>
-            </div>
-          )
-        })}
-      </div>
+            return (
+              <li key={artist.id} className="card-artists">
+                <img src={artist.images?.[0]?.url || "/default-artist.png"} alt={artist.name} className="artists-image"/>
+                <div className="artists-overlay">
+                  <h3 className="artists-title">{artist.name}</h3>
+                </div>
+              </li>
+            )
+          })}
+      </ul>
     </div>
   )
 }
