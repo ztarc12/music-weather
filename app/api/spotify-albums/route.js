@@ -26,28 +26,27 @@ export async function GET(req) {
   const weatherQuery = searchParams.get('weather') || '맑은 날'
   const offset = searchParams.get('offset') || 0
   const market = 'KR'
+
   try {
     const token = await getSpotifyToken()
-    const response = await axios.get('https://api.spotify.com/v1/search',{
+    const response = await axios.get('https://api.spotify.com/v1/search', {
       params: {
-        q: `${weatherQuery} 한국`,
-        type: 'artist',
+        q: `${weatherQuery} 한국 album`,
+        type: 'album',
         market,
         limit: 7,
         offset
       },
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      headers: { Authorization: `Bearer ${token}` }
     })
-    return new Response(JSON.stringify(response.data), {
+    return new Response(JSON.stringify(response.data),{
       status: 200,
       headers: { 'Content-Type': 'application/json'}
     })
   } catch (error) {
-    console.error('Error fetching playlist tracks', error.response?.data || error)
-    return new Response(JSON.stringify({ error: '플레이리스트 트랙 데이터를 가져오는데 실패했습니다.' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' }}
-    )
+    console.error('Spotify album fetch error', error.response?.data || error)
+    return new Response(JSON.stringify({ error: 'Error fetching albums from Spotify'}),
+    { status: 500, headers: { 'Content-Type': 'application/json'}}
+  )
   }
 }

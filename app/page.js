@@ -1,4 +1,5 @@
 "use client"
+import PlaylistAlbums from "@/components/PlaylistAlbums";
 import PlaylistArtists from "@/components/PlaylistArtists";
 import WeatherPlaylist from "@/components/WeatherPlaylist";
 import WeeklyForecast from "@/components/WeeklyForecast";
@@ -58,6 +59,7 @@ export default function Home() {
           <WeeklyForecast forecast={weeklyForecast}/>
           <WeatherPlaylist forecast={weeklyForecast}/>   
           <PlaylistArtists forecast={weeklyForecast}/>
+          <PlaylistAlbums forecast={weeklyForecast}/>
         </div>
       </div>
     </div>

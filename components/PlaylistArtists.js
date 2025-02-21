@@ -1,12 +1,12 @@
 "use client"
 
-import { useWeatherArtists } from "@/hooks/useWeatherArtists"
+import { useSpotifyMusic } from "@/hooks/useSpotifyMisic"
 
 export default function PlaylistArtists({ forecast }){
-  const { artists, loading } = useWeatherArtists(forecast)
+  const { artists, loadingArtists } = useSpotifyMusic(forecast)
   // console.log(artists)
 
-  if (loading) return <p>가수를 불러오는 중...</p>
+  if (loadingArtists) return <p>가수를 불러오는 중...</p>
   if (!artists || artists.length === 0) return <p>플레이리스트에 아티스트 정보가 없습니다.</p>
   return (
     <div className="artists-cont">

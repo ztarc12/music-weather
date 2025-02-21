@@ -42,7 +42,8 @@ export async function GET(req) {
         q: `${weatherQuery} 한국`,
         type: 'playlist',
         market: market,
-        limit: 8
+        limit: 7,
+        offset
       },
       headers: {
         Authorization: `Bearer ${token}`
