@@ -4,7 +4,6 @@ import { useSpotifyMusic } from "@/hooks/useSpotifyMisic"
 
 export default function PlaylistArtists({ forecast }){
   const { artists, loadingArtists } = useSpotifyMusic(forecast)
-  // console.log(artists)
 
   if (loadingArtists) return <p>가수를 불러오는 중...</p>
   if (!artists || artists.length === 0) return <p>플레이리스트에 아티스트 정보가 없습니다.</p>

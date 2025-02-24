@@ -1,14 +1,16 @@
+'use client'
+
+import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore";
 import { getWeatherQuery } from "@/util/getWeatherQuery";
 import { useEffect, useState } from "react";
 
 export function useSpotifyMusic(forecast){
-  const [albums, setAlbums] = useState([])
-  const [artists, setArtists] = useState([])
-  const [playlists, setPlaylists] = useState([])
   const [loadingAlbums, setLoadingAlbums] = useState(false)
   const [loadingArtists, setLoadingArtists] = useState(false)
   const [loadingPlaylists, setLoadingPlaylists] = useState(false)
   const [offset, setOffset] = useState(0)
+
+  const { albums, setAlbums, artists, setArtists, playlists, setPlaylists } = useWeatherSpotifyStore()
 
   // playlist
   useEffect(()=>{
@@ -111,11 +113,12 @@ export function useSpotifyMusic(forecast){
     }
     loadAlbums()
   },[forecast, offset])
-  // useEffect(()=>{
-  // const intervalId = setInterval(()=>{
-  //   setOffset(prevOffset => parseInt(prevOffset) + 7)
-  // }, 10000)
-  // return () => clearInterval(intervalId)
-  // },[])
+  useEffect(()=>{
+  const intervalId = setInterval(()=>{
+    setOffset(prevOffset => parseInt(prevOffset) + 7)
+  }, 90000)
+  return () => clearInterval(intervalId)
+  },[])
   return {albums, artists, playlists, loadingAlbums, loadingArtists, loadingPlaylists}
+  // return
 }

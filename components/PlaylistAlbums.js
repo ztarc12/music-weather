@@ -4,6 +4,7 @@ import { useSpotifyMusic } from "@/hooks/useSpotifyMisic"
 
 export default function PlaylistAlbums({ forecast }) {
   const { albums, loadingAlbums } = useSpotifyMusic(forecast)
+  // console.log('앨범',albums)
 
   if (loadingAlbums) return <p>앨범을 불러오는 중...</p>
   if(!albums || albums.length === 0) return <p>앨범을 찾지 못했습니다.</p>
