@@ -19,8 +19,12 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-.main-section {
+#main {
+
   background: rgb(29, 1, 37);
+}
+.main-section {
+  /* background: rgb(29, 1, 37); */
   height: 100vh;
   /* height: auto; */
   display: flex;
@@ -271,4 +275,11 @@ body {
   letter-spacing: -1px;
   display: flex;
   justify-content: center;
+}
+
+/* albums */
+.albums {
+  padding-top: 3rem;
+  border: 1px solid red;
+  color: #fff;
 }

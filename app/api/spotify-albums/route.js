@@ -31,10 +31,10 @@ export async function GET(req) {
     const token = await getSpotifyToken()
     const response = await axios.get('https://api.spotify.com/v1/search', {
       params: {
-        q: `${weatherQuery} 한국 album`,
+        q: `${weatherQuery} K-pop album`,
         type: 'album',
         market,
-        limit: 7,
+        limit: 10,
         offset
       },
       headers: { Authorization: `Bearer ${token}` }

@@ -13,7 +13,9 @@ export function useSpotifyMusic(forecast){
   const { albums, setAlbums, artists, setArtists, playlists, setPlaylists } = useWeatherSpotifyStore()
 
   // playlist
+  // if(albums || artists || playlists) return;
   useEffect(()=>{
+    
     async function loadPlaylist(){
       if (!forecast || !forecast.weathercode) {
         setLoadingPlaylists(false)
@@ -32,7 +34,9 @@ export function useSpotifyMusic(forecast){
         }
         const data = await res.json()
         setPlaylists(data.playlists)
-        console.log(data.playlists)
+        // console.log("플레이리스트 data",data)
+        // console.log("플레이리스트 data",data.playlists)
+        // console.log(data.playlists)
       } catch (error) {
         console.error('Error fetching Spotify playlist', error)
       } finally {
@@ -63,10 +67,10 @@ export function useSpotifyMusic(forecast){
         const data = await res.json()
         const artistsData = data.artists.items
         if(data.artists && Array.isArray(artistsData)) {
-          const filterArtists = artistsData.filter((artist) => artist.popularity >= 20)
+          const filterArtists = artistsData.filter((artist) => artist.popularity >= 30)
           setArtists(filterArtists)
-          console.log(data)
-          console.log(filterArtists)
+          // console.log(data)
+          // console.log(filterArtists)
         } else {
           console.error('API response missing artists.items', data)
         }
@@ -100,8 +104,8 @@ export function useSpotifyMusic(forecast){
         const data = await res.json()
         if(data.albums && Array.isArray(data.albums.items)) {
           setAlbums(data.albums.items)
-        //  console.log(data)
-        //  console.log(albums)
+         console.log(data)
+         console.log(albums)
         } else {
         console.error('API response missing albums.items', data)
         }
@@ -116,7 +120,7 @@ export function useSpotifyMusic(forecast){
   useEffect(()=>{
   const intervalId = setInterval(()=>{
     setOffset(prevOffset => parseInt(prevOffset) + 7)
-  }, 90000)
+  }, 100000)
   return () => clearInterval(intervalId)
   },[])
   return {albums, artists, playlists, loadingAlbums, loadingArtists, loadingPlaylists}

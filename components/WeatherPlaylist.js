@@ -2,10 +2,20 @@
 
 import { useSpotifyMusic } from "@/hooks/useSpotifyMisic"
 import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore"
+import { useMemo } from "react"
+import { useShallow } from "zustand/shallow"
 
 export default function WeatherPlaylist({ forecast }){
-  const { playlists, loadingPlaylists } = useSpotifyMusic(forecast)
-  if (loadingPlaylists) return <p>플레이리스트를 불러오는 중...</p>
+  const playlistState = useMemo(
+    () => (state) => ({
+      playlists: state.playlists
+    }), []
+  )
+  const { playlists } = useWeatherSpotifyStore(useShallow(playlistState))
+  console.log("플레이리스트",playlists)
+  // const { loadingPlaylists } = useSpotifyMusic(forecast)
+  
+  // if (loadingPlaylists) return <p>플레이리스트를 불러오는 중...</p>
   if(!playlists || !playlists.items || playlists.items.length === 0) return <p>날씨에 맞는 플레이리스트를 찾지 못했습니다.</p>
   return (
     <div className="playlist-cont">

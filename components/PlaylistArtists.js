@@ -1,11 +1,20 @@
 "use client"
 
 import { useSpotifyMusic } from "@/hooks/useSpotifyMisic"
+import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore"
+import { useMemo } from "react"
+import { useShallow } from "zustand/shallow"
 
 export default function PlaylistArtists({ forecast }){
-  const { artists, loadingArtists } = useSpotifyMusic(forecast)
+  const artistsData = useMemo(
+    () => (state) => ({
+      artists: state.artists
+    })
+  )
+  const { artists } = useWeatherSpotifyStore(useShallow(artistsData))
+  // const { loadingArtists } = useSpotifyMusic(forecast)
 
-  if (loadingArtists) return <p>가수를 불러오는 중...</p>
+  // if (loadingArtists) return <p>가수를 불러오는 중...</p>
   if (!artists || artists.length === 0) return <p>플레이리스트에 아티스트 정보가 없습니다.</p>
   return (
     <div className="artists-cont">

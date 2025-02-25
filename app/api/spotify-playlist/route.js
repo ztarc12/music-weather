@@ -39,16 +39,17 @@ export async function GET(req) {
 
     const response = await axios.get('https://api.spotify.com/v1/search', {
       params: {
-        q: `${weatherQuery} 한국`,
+        q: `${weatherQuery} K-pop`,
         type: 'playlist',
         market: market,
-        limit: 7,
+        limit: 10,
         offset
       },
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
+    console.log("플레이리스트 API",response)
 
     return new Response(JSON.stringify(response.data), {
       status: 200,
@@ -56,6 +57,7 @@ export async function GET(req) {
     })
   } catch (error) {
     console.error('Spotify playlist fetch error', error)
+    console.log("플레이리스트 API",response)
     return new Response(JSON.stringify({ error: 'Error fetching playlist from Spotify'}),
       { status: 500, headers: { 'Content-Type': 'application/json' }}
     )
