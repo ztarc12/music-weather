@@ -39,10 +39,10 @@ export async function GET(req) {
 
     const response = await axios.get('https://api.spotify.com/v1/search', {
       params: {
-        q: `${weatherQuery} K-pop`,
+        q: `${weatherQuery} (K-pop OR K-r&b)`,
         type: 'playlist',
         market: market,
-        limit: 10,
+        limit: 32,
         offset
       },
       headers: {

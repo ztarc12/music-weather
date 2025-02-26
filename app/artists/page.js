@@ -4,23 +4,23 @@ import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore"
 import { useMemo } from "react"
 import { useShallow } from 'zustand/shallow'
   
-export default function AlbumsPage() {
-  const albumsData = useMemo(
-    () => (state) => ({albums: state.albums}), []
+export default function ArtistPage() {
+  const artistsData = useMemo(
+    () => (state) => ({artists: state.artists}), []
   )
-  const { albums } = useWeatherSpotifyStore(useShallow(albumsData));
-  console.log("Albums from store:", albums);
-  console.log(albums)
+  const { artists } = useWeatherSpotifyStore(useShallow(artistsData));
+  console.log("artists from store:", artists);
+  console.log(artists)
 
   return (
     <div className="main-cont detail">
-      <h1>앨범</h1>
+      <h1>아티스트</h1>
       {/* <h2>{albums[0].name}</h2> */}
       <ul className="detail-cont">
-        {albums.map((item)=>{
+        {artists.map((item)=>{
           return (
             <li key={item.id} className="">
-              <img src={item.images?.[0]?.url || '/default-album.png'} className="detail-image"/>
+              <img src={item.images?.[0]?.url || '/default-artist.png'} className="detail-image"/>
               <div>
                 <h3 className="detail-cont-name">
                   {item.name}

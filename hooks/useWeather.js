@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export function useWeather(){
   const { weeklyForecast, weatherImage, setWeeklyForecast, setWeatherImage } = useWeatherSpotifyStore()
-  console.log("로드된 날씨 코드",weeklyForecast)
+  // console.log("로드된 날씨 코드",weeklyForecast)
 
   useEffect(()=>{
     if (weeklyForecast || weatherImage) return;
@@ -23,7 +23,7 @@ export function useWeather(){
           if(data && data.daily) {
             setWeeklyForecast(data.daily)
             const firstWeatherCode = data.daily.weathercode[0]
-            console.log('날씨코드', firstWeatherCode)
+            // console.log('날씨코드', firstWeatherCode)
             const query = getWeatherQuery(firstWeatherCode)
   
             const unsplashRes = await fetch(`/api/unsplash?query=${encodeURIComponent(query)}`)

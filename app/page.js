@@ -23,7 +23,7 @@ export default function Home() {
   )
   
   const { weeklyForecast, weatherImage } = useWeatherSpotifyStore(useShallow(waetherState))
-  console.log("현재 날씨",weeklyForecast)
+  // console.log("현재 날씨",weeklyForecast)
 
   useSpotifyMusic(weeklyForecast)
 

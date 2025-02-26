@@ -104,8 +104,8 @@ export function useSpotifyMusic(forecast){
         const data = await res.json()
         if(data.albums && Array.isArray(data.albums.items)) {
           setAlbums(data.albums.items)
-         console.log(data)
-         console.log(albums)
+        //  console.log(data)
+        //  console.log(albums)
         } else {
         console.error('API response missing albums.items', data)
         }
@@ -117,12 +117,12 @@ export function useSpotifyMusic(forecast){
     }
     loadAlbums()
   },[forecast, offset])
-  useEffect(()=>{
-  const intervalId = setInterval(()=>{
-    setOffset(prevOffset => parseInt(prevOffset) + 7)
-  }, 100000)
-  return () => clearInterval(intervalId)
-  },[])
+  // useEffect(()=>{
+  // const intervalId = setInterval(()=>{
+  //   setOffset(prevOffset => parseInt(prevOffset) + 7)
+  // }, 100000)
+  // return () => clearInterval(intervalId)
+  // },[])
   return {albums, artists, playlists, loadingAlbums, loadingArtists, loadingPlaylists}
   // return
 }

@@ -1,8 +1,14 @@
 "use client"
 
-import { useSpotifyMusic } from "@/hooks/useSpotifyMisic"
-import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore"
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
 import { useMemo } from "react"
+import { useCycleItems } from "@/hooks/useCycleItems"
+import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore"
 import { useShallow } from "zustand/shallow"
 
 export default function PlaylistArtists({ forecast }){
@@ -12,6 +18,9 @@ export default function PlaylistArtists({ forecast }){
     })
   )
   const { artists } = useWeatherSpotifyStore(useShallow(artistsData))
+  console.log('아티스트',artists)
+  const currentArtists = useCycleItems(artists, 100000, 8)
+  // console.log(currentArtists)
   // const { loadingArtists } = useSpotifyMusic(forecast)
 
   // if (loadingArtists) return <p>가수를 불러오는 중...</p>
@@ -21,18 +30,42 @@ export default function PlaylistArtists({ forecast }){
       <h2 className="content-title">
         관련된 노래를 누가 불렀을까요?
       </h2>
-      <ul className="artists-container">
-        {artists.map((artist)=>{
-            return (
-              <li key={artist.id} className="card-artists">
-                <img src={artist.images?.[0]?.url || "/default-artist.png"} alt={artist.name} className="artists-image"/>
-                <div className="artists-overlay">
-                  <h3 className="artists-title">{artist.name}</h3>
+      <Swiper className="artists-container"
+       modules={[Navigation]}
+       navigation
+       spaceBetween={10}
+       slidesPerView={8}
+       breakpoints={{
+        500: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+         640: {
+           slidesPerView: 4,
+           spaceBetween: 10,
+         },
+         768: {
+           slidesPerView: 5,
+           spaceBetween: 15,
+         },
+         1024: {
+           slidesPerView: 6,
+           spaceBetween: 20,
+         },
+       }}>
+        {currentArtists.map((item) => {
+          return (
+            <SwiperSlide key={item.id}>
+              <div>
+                <img src={item.images?.[0]?.url || "/default-artist.png"} alt={item.name} className="artists-image"/>
+                <div>
+                  <h3 className="artists-title">{item.name}</h3>
                 </div>
-              </li>
-            )
-          })}
-      </ul>
+              </div>
+            </SwiperSlide>
+          )
+        })}
+      </Swiper>
     </div>
   )
 }

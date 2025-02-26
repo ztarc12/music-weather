@@ -1,13 +1,16 @@
 import { getWeatherIcon } from "@/util/getWeatherIcon"
+import { getWeatherTitle } from "@/util/getWeatherTitle"
 
 export default function WeeklyForecast({ forecast }) {
+  const weatherMessage = getWeatherTitle(forecast.weathercode[0])
+  console.log(forecast.time)
   if(!forecast || !forecast.time) {
     return <p>예보 데이터 불러오는 중...</p>
   }
   return(
     <div className="weather-cont">
       <h2 className="content-title">
-        날씨가 좋네요
+        {weatherMessage}
         <br/>
         날씨에 맞는 음악 추천해드릴게요
       </h2>
@@ -16,7 +19,7 @@ export default function WeeklyForecast({ forecast }) {
           forecast.time.map((date, index)=>{
             return(
               <li key={index} className="card-weather">
-                <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 ">
+                <div className="date">
                   <span className="date-title">{date}</span>
                 </div>
                 <div><i className={`wi ${getWeatherIcon(forecast.weathercode[index])} icons`}/></div>

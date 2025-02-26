@@ -33,7 +33,7 @@ export async function GET(req) {
         q: `${weatherQuery} K-pop`,
         type: 'artist',
         market,
-        limit: 10,
+        limit: 32,
         offset
       },
       headers: {

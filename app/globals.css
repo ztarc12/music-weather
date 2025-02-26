@@ -9,6 +9,9 @@
     --foreground: #ededed;
   }
 }
+::-webkit-scrollbar {
+  display: none;
+}
 * {
   box-sizing: border-box;
   padding: 0;
@@ -20,8 +23,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 #main {
-
   background: rgb(29, 1, 37);
+}
+#main::-webkit-scrollbar {
+  display: none;
 }
 .main-section {
   /* background: rgb(29, 1, 37); */
@@ -38,10 +43,9 @@ body {
   background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(120,120,120,0.001) 50%, rgba(0,0,0,0.6) 100%);
 }
 .main-cont {
+  max-width: 1200px;
   padding: 16px;
-  /* height: 100%; */
-  /* display: flex;
-  flex-direction: column; */
+  margin: 0 auto;
 }
 
 .content-title {
@@ -60,11 +64,13 @@ body {
 }
 .menu-box {
   margin: 0 auto;
+  max-width: 1200px;
   display: flex;
-  width: 60%;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 1rem;
+}
+.menu-box>li {
+  margin: 1rem
 }
 .menu-box>li>a {
   color: #ccc;
@@ -73,6 +79,12 @@ body {
 .menu-box>li>a:hover {
   color: rgb(50, 80, 179);
   transition: 0.5s;
+}
+.menu-box>li>a:focus,
+.menu-box>li>a:active {
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 /* Weekly Forecast */
@@ -113,10 +125,18 @@ body {
   width: 100%;
   text-align: center;
 }
+.date {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 0.5rem;
+}
 .temper {
   width: 100%;
   display: flex;
   justify-content: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid #fff;
 }
 .temper>span {
   width: 100%;
@@ -128,125 +148,73 @@ body {
   text-align: center;
 }
 
-/* Weather Playlist & WeatherArtists */
+/* Weather Playlist & Artists & Albums */
 
 .playlist-cont,
-.artists-cont {
+.artists-cont,
+.albums-cont {
   /* padding: 2rem 0; */
   display: flex;
   flex-direction: column;
   margin-bottom: 3rem;
 }
 .playlist-container,
-.artists-container {
+.artists-container,
+.albums-container {
   overflow-x: auto;
   display: flex;
   gap: 16px;
   width: 100%;
 }
 .playlist-container::-webkit-scrollbar,
-.artists-container::-webkit-scrollbar {
+.artists-container::-webkit-scrollbar,
+.albums-container::-webkit-scrollbar {
   display: none;
 }
 .card-playlist,
-.card-artists {
+.card-artists,
+.card-albums {
   position: relative;
   width: 150px;
-  aspect-ratio: 1 / 1;
+  /* aspect-ratio: 1 / 1; */
   min-width: 100px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  /* flex-shrink: 0; */
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   cursor: pointer;
 }
+
 .playlist-image,
-.artists-image {
+.artists-image,
+.albums-image {
+  aspect-ratio: 1 / 1;
   width: 100%;
-  height: 100%;
+  border-radius: 8px;
   object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: filter 0.3s;
+  border: 1px solid #ddd;
+  cursor: pointer;
 }
-.card-playlist:hover .playlist-image,
-.card-artists:hover .artists-image {
-  filter: blur(4px);
-}
-.artists-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.playlist-title,
+.artists-title,
+.albums-title {
   color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  opacity: 0;
-  z-index: 1;
-  transition: opacity 0.3s;
-  background: rgba(0,0,0,0.7);
+  font-size: 14px;
 }
-.card-playlist:hover .playlist-overlay,
-.card-artists:hover .artists-overlay {
-  opacity: 1;
-}
-.artists-title {
-  font-size: 12px;
-  font-weight: 700;
-  width: 100%;
-  padding: 5px;
-  letter-spacing: -1px;
-  display: flex;
-  justify-content: center;
-}
+
 
 /* Weather Playlist */
-
-.playlist-cont {
-  /* padding: 2rem 0; */
-  margin-bottom: 3rem;
-  display: flex;
-  flex-direction: column;
-}
-.playlist-container {
-  overflow-x: auto;
-  display: flex;
-  gap: 16px;
-  width: 100%;
-}
-.playlist-container::-webkit-scrollbar {
-  display: none;
-}
 .card-playlist {
   position: relative;
-  width: 150px;
   aspect-ratio: 1 / 1;
-  min-width: 100px;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  /* flex-shrink: 0; */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  cursor: pointer;
 }
 .playlist-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;
-  transition: filter 0.3s;
+  filter: blur(10px);
 }
-.card-playlist:hover .playlist-image {
-  filter: blur(4px);
-}
+
 .playlist-overlay {
   position: absolute;
   top: 0;
@@ -256,30 +224,93 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
   font-size: 16px;
   font-weight: bold;
-  opacity: 0;
   z-index: 1;
-  transition: opacity 0.3s;
-  background: rgba(0,0,0,0.7);
-}
-.card-playlist:hover .playlist-overlay {
-  opacity: 1;
+  background: rgba(0,0,0,0.3);
 }
 .playlist-title {
-  font-size: 12px;
   font-weight: 700;
   width: 100%;
+  height: 100%;
   padding: 5px;
   letter-spacing: -1px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* albums */
-.albums {
+.detail {
   padding-top: 3rem;
-  border: 1px solid red;
   color: #fff;
+}
+.detail-cont {
+  display: grid;
+  gap: 16px;
+  grid-template-columns:  repeat(auto-fill, minmax(200px, 1fr));
+  
+}
+.detail-cont>li {
+  cursor: pointer;
+}
+.detail-image {
+  width: 100%;
+  border-radius: 8px;
+  aspect-ratio: 1 / 1;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.detail-cont-name {
+  z-index: 100;
+  opacity: 1;
+  color: #fff;
+}
+
+/* Custom Swiper Css */
+.swiper-button-prev,
+.swiper-button-next {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.swiper-button-prev::before{
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%,-50%);
+  border-bottom: 8px solid transparent;
+  border-top: 8px solid transparent;
+  border-left: 8px solid transparent;
+  border-right: 8px solid #ddd;
+}
+.swiper-button-next::before {
+  top: 50%;
+  right: 30%;
+  transform: translate(50%,-50%);
+  border-bottom: 8px solid transparent;
+  border-top: 8px solid transparent;
+  border-left: 8px solid #ddd;
+  border-right: 8px solid transparent;
+}
+.swiper-button-prev::before,
+.swiper-button-next::before {
+  content: '';
+  position: absolute;
+  z-index: 10;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #222;
+  color: transparent; 
 }
