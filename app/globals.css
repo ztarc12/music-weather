@@ -314,3 +314,47 @@ body {
   background: #222;
   color: transparent; 
 }
+
+/* Detail playlist */
+.info-box {
+  display: flex;
+  margin-bottom: 3rem;
+}
+.info-text {
+  margin-left: 1rem;
+  width: 100%;
+}
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 500px;
+  gap: 10px;
+}
+.image-grid>img {
+  width: 100%;
+  border-radius: 10px;
+}
+.playlist-track-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.playlist-track {
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+.playlist-track>img {
+  width: 5.2rem;
+  height: 5.2rem;
+}
+.name-artist {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1rem;
+}
+.artist {
+  color: #aaa;
+  font-weight: 500;
+}

@@ -117,12 +117,5 @@ export function useSpotifyMusic(forecast){
     }
     loadAlbums()
   },[forecast, offset])
-  // useEffect(()=>{
-  // const intervalId = setInterval(()=>{
-  //   setOffset(prevOffset => parseInt(prevOffset) + 7)
-  // }, 100000)
-  // return () => clearInterval(intervalId)
-  // },[])
   return {albums, artists, playlists, loadingAlbums, loadingArtists, loadingPlaylists}
-  // return
 }

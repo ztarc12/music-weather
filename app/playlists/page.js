@@ -4,7 +4,7 @@ import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore"
 import { useMemo } from "react"
 import { useShallow } from 'zustand/shallow'
   
-export default function ArtistPage() {
+export default function PlaylistsPage() {
   const playlistsData = useMemo(
     () => (state) => ({playlists: state.playlists}), []
   )

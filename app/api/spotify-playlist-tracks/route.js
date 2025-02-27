@@ -30,36 +30,30 @@ async function getSpotifyToken() {
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url)
-  const weatherQuery = searchParams.get('weather') || '맑은 날'
-  const offset = searchParams.get('offset')
+  const playlistId = searchParams.get('playlistId')
   const market = 'KR'
 
-  try {
-    const token = await getSpotifyToken()
-
-    const response = await axios.get('https://api.spotify.com/v1/search', {
-      params: {
-        q: `${weatherQuery} (K-pop OR K-r&b)`,
-        type: 'playlist',
-        market: market,
-        limit: 32,
-        offset
-      },
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    // console.log("플레이리스트 API",response)
-
-    return new Response(JSON.stringify(response.data), {
-      status: 200,
+  if(!playlistId) {
+    return new Response(JSON.stringify({ error: 'playlistId 파라미터가 필요합니다.' }), {
+      status: 400,
       headers: { 'Content-Type': 'application/json'}
     })
+  }
+  try {
+    const token = await getSpotifyToken()
+    const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,{
+      params: { market, limit: 10},
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    return new Response(JSON.stringify(response.data), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    })
   } catch (error) {
-    console.error('Spotify playlist fetch error', error)
-    console.log("플레이리스트 API",response)
-    return new Response(JSON.stringify({ error: 'Error fetching playlist from Spotify'}),
-      { status: 500, headers: { 'Content-Type': 'application/json' }}
-    )
+    console.error('Error fetching playlist tracks:', error)
+    return new Response(JSON.stringify({ error: '플레이리스트 트랙 데이터를 가져오는데 실패했습니다.' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json'}
+    })
   }
 }
