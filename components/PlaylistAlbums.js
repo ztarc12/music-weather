@@ -10,6 +10,7 @@ import { useCycleItems } from "@/hooks/useCycleItems"
 import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore"
 import { useMemo } from "react"
 import { useShallow } from "zustand/shallow"
+import Link from "next/link";
 
 export default function PlaylistAlbums({ forecast }) {
   const albumsData = useMemo(
@@ -51,14 +52,17 @@ export default function PlaylistAlbums({ forecast }) {
          },
        }}>
         {currentAlbums.map((item) => {
+          console.log(item)
           return (
             <SwiperSlide key={item.id}>
-              <div>
-                <img src={item.images?.[0]?.url || "/default-artist.png"} alt={item.name} className="artists-image"/>
+              <Link href={`albums/detail/${item.id}`}>
                 <div>
-                  <h3 className="artists-title">{item.name}</h3>
+                  <img src={item.images?.[0]?.url || "/default-artist.png"} alt={item.name} className="artists-image"/>
+                  <div>
+                    <h3 className="artists-title">{item.name}</h3>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           )
         })}

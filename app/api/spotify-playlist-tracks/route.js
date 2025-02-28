@@ -42,7 +42,7 @@ export async function GET(req) {
   try {
     const token = await getSpotifyToken()
     const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,{
-      params: { market, limit: 10},
+      params: { market, limit: 60},
       headers: { Authorization: `Bearer ${token}`}
     })
     return new Response(JSON.stringify(response.data), {

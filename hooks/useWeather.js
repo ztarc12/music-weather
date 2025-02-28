@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export function useWeather(){
   const { weeklyForecast, weatherImage, setWeeklyForecast, setWeatherImage } = useWeatherSpotifyStore()
-  console.log("로드된 날씨 코드",weeklyForecast)
+  // console.log("로드된 날씨 코드",weeklyForecast)
 
   useEffect(()=>{
     if (weeklyForecast || weatherImage) return;

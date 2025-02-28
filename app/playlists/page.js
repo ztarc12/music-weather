@@ -14,7 +14,7 @@ export default function PlaylistsPage() {
 
   return (
     <div className="main-cont detail">
-      <h1>아티스트</h1>
+      <h1>플레이리스트</h1>
       <ul className="detail-cont">
         {playlists.items.filter(item => item).map((item)=>{
           return (

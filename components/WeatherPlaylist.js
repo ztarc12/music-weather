@@ -18,7 +18,7 @@ export default function WeatherPlaylist({ forecast }){
       playlists: state.playlists
     }), []
   )
-  console.log(playlistState)
+  // console.log(playlistState)
   const { playlists } = useWeatherSpotifyStore(useShallow(playlistState))
   // console.log("플레이리스트",playlists)
   // console.log("플레이리스트 items",playlists.items)

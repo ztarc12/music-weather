@@ -1,6 +1,5 @@
 'use client'
 
-import Menu from "@/components/Menu";
 import PlaylistAlbums from "@/components/PlaylistAlbums";
 import PlaylistArtists from "@/components/PlaylistArtists";
 import WeatherPlaylist from "@/components/WeatherPlaylist";
@@ -25,13 +24,14 @@ export default function Home() {
   
   const { weeklyForecast, weatherImage } = useWeatherSpotifyStore(useShallow(waetherState))
   // console.log("현재 날씨",weeklyForecast)
+  // console.log('현재 이미지', weatherImage)
 
   const filteredForecast = useMemo(()=>{
     return weeklyForecast ? filterForecast(weeklyForecast) : null
   },[weeklyForecast])
-  console.log('filteredForecast',filteredForecast)
 
   useSpotifyMusic(filteredForecast)
+  // useSpotifyMusic(weeklyForecast)
 
   return (
     <div className="main-section">
@@ -40,9 +40,9 @@ export default function Home() {
         <div className="bg-cover">
           <div className="main-cont">
             <WeeklyForecast forecast={filteredForecast}/>
-            <WeatherPlaylist forecast={weeklyForecast}/>   
-            <PlaylistArtists forecast={weeklyForecast}/>
-            <PlaylistAlbums forecast={weeklyForecast}/>
+            <WeatherPlaylist forecast={filteredForecast}/>   
+            <PlaylistArtists forecast={filteredForecast}/>
+            <PlaylistAlbums forecast={filteredForecast}/>
           </div>
         </div>
       </div>
