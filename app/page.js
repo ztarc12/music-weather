@@ -7,7 +7,6 @@ import WeeklyForecast from "@/components/WeeklyForecast";
 import { useSpotifyMusic } from "@/hooks/useSpotifyMisic";
 import { useWeather } from "@/hooks/useWeather";
 import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore";
-import { filterForecast } from "@/util/filterForecast";
 import { useMemo } from "react";
 import { useShallow } from "zustand/shallow";
 
@@ -23,15 +22,7 @@ export default function Home() {
   )
   
   const { weeklyForecast, weatherImage } = useWeatherSpotifyStore(useShallow(waetherState))
-  // console.log("현재 날씨",weeklyForecast)
-  // console.log('현재 이미지', weatherImage)
-
-  const filteredForecast = useMemo(()=>{
-    return weeklyForecast ? filterForecast(weeklyForecast) : null
-  },[weeklyForecast])
-
-  useSpotifyMusic(filteredForecast)
-  // useSpotifyMusic(weeklyForecast)
+  useSpotifyMusic(weeklyForecast)
 
   return (
     <div className="main-section">
@@ -39,10 +30,10 @@ export default function Home() {
       : 'none',backgroundSize: 'cover', backgroundPosition: 'center'}}>
         <div className="bg-cover">
           <div className="main-cont">
-            <WeeklyForecast forecast={filteredForecast}/>
-            <WeatherPlaylist forecast={filteredForecast}/>   
-            <PlaylistArtists forecast={filteredForecast}/>
-            <PlaylistAlbums forecast={filteredForecast}/>
+            <WeeklyForecast forecast={weeklyForecast}/>
+            <WeatherPlaylist forecast={weeklyForecast}/>   
+            <PlaylistArtists forecast={weeklyForecast}/>
+            <PlaylistAlbums forecast={weeklyForecast}/>
           </div>
         </div>
       </div>

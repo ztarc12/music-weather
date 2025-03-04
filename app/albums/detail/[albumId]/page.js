@@ -2,6 +2,8 @@
 
 import { useDetailSpotify } from "@/hooks/useDetailSpotify";
 import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore";
+import { faFileArrowDown, faFolderPlus, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
@@ -69,6 +71,17 @@ export default function DetailArtists() {
                   {item.artists.map((artist) => artist.name).join(", ")}
                 </span>
               </h4>
+              <div className="play-bar">
+                <button>
+                  <FontAwesomeIcon icon={faFolderPlus}/>
+                </button>
+                <button>
+                  <FontAwesomeIcon icon={faFileArrowDown}/>
+                </button>
+                <button>
+                  <FontAwesomeIcon icon={faPlay}/>
+                </button>
+              </div>
             </li>
           )
         })}

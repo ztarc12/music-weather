@@ -2,16 +2,23 @@ import { getWeatherIcon } from "@/util/getWeatherIcon"
 import { getWeatherTitle } from "@/util/getWeatherTitle"
 
 export default function WeeklyForecast({ forecast }) {
-  const forecastArray = forecast.time.map((time,index)=>({
-    time,
-    weathercode:forecast.weathercode[index],
-    temperature_2m_max: forecast.temperature_2m_max[index],
-    temperature_2m_min: forecast.temperature_2m_min[index]
-  }))
-  const weatherMessage = getWeatherTitle(forecastArray[0].weathercode)
-  if(!forecast || !forecastArray) {
+  // console.log('위클리', forecast)
+  if(!forecast || !forecast.time || !Array.isArray(forecast.time)) {
     return <p>예보 데이터 불러오는 중...</p>
   }
+
+  const forecastArray = forecast.time.map((time,index)=>({
+    time,
+    weathercode:forecast.weathercode[index] || 0,
+    temperature_2m_max: forecast.temperature_2m_max[index] || 0,
+    temperature_2m_min: forecast.temperature_2m_min[index] || 0
+  }))
+
+  if (forecastArray.length === 0) {
+    return <p>예보 데이터가 없습니다.</p>
+  }
+
+  const weatherMessage = getWeatherTitle(forecast.weathercode[0])
   return(
     <div className="weather-cont">
       <h2 className="content-title">

@@ -31,7 +31,7 @@ async function getSpotifyToken() {
 export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const playlistId = searchParams.get('playlistId')
-  const market = 'KR'
+  // const market = 'US'
 
   if(!playlistId) {
     return new Response(JSON.stringify({ error: 'playlistId 파라미터가 필요합니다.' }), {
@@ -42,7 +42,8 @@ export async function GET(req) {
   try {
     const token = await getSpotifyToken()
     const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,{
-      params: { market, limit: 60},
+      // params: { market, limit: 60},
+      params: { limit: 60},
       headers: { Authorization: `Bearer ${token}`}
     })
     return new Response(JSON.stringify(response.data), {

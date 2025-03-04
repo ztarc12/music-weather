@@ -32,7 +32,7 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const weatherQuery = searchParams.get('weather') || '맑은 날'
   const offset = searchParams.get('offset')
-  const market = 'KR'
+  // const market = 'KR'
 
   try {
     const token = await getSpotifyToken()
@@ -41,7 +41,7 @@ export async function GET(req) {
       params: {
         q: `${weatherQuery} (K-pop OR K-r&b)`,
         type: 'playlist',
-        market: market,
+        // market: market,
         limit: 32,
         offset
       },

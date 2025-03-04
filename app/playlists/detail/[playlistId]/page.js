@@ -6,14 +6,16 @@ import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { useShallow } from "zustand/shallow";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileArrowDown, faFolderPlus, faPlay } from "@fortawesome/free-solid-svg-icons";
+
 export default function DetailPlaylists() {
   const { playlistId } = useParams();
-  // console.log('플레이리스트아이디', playlistId)
 
   if (!playlistId) return <p>잘못된 접근입니다.</p>;
 
   const { data, loading, error } = useDetailSpotify(playlistId, 'playlist');
-  // console.log(data)
+  console.log('데이터',data)
 
   const playlistState = useMemo(
     () => (state) => ({
@@ -23,10 +25,25 @@ export default function DetailPlaylists() {
   );
 
   const { playlists } = useWeatherSpotifyStore(useShallow(playlistState));
-  // console.log('플레이리스트', playlists)
-
+  console.log('플레이리스트',playlists)
   const playlistDetail = (playlists?.items ?? []).find((p) => p?.id === playlistId) || null;
-  console.log("playlistDetail", playlistDetail);
+  console.log('플레이리스트 디테일',playlistDetail)
+  
+  const { setPlayingTrack, setAudio, setPlayerVisible } = useWeatherSpotifyStore()
+
+  const handlePlayTrack = (track) => {
+    if(!track.preview_url) {
+      alert('미리 듣기가 지원되지 않는 트랙입니다.')
+      return
+    }
+    const newAudio = new Audio(track.preview_url)
+    newAudio.play()
+
+    setAudio(newAudio)
+    setPlayingTrack(track)
+    setPlayerVisible(true)
+  }
+
   if (loading) return <p>불러오는 중...</p>;
   if (!data) return <p>데이터를 찾을수 없습니다.</p>;
   if (!playlistDetail) return <p>플레이리스트를 찾을 수 없습니다.</p>
@@ -62,6 +79,9 @@ export default function DetailPlaylists() {
       </div>
       <ul className="track-box">
         {data?.items.map((item, index) => {
+          console.log('아이템',item)
+          console.log('트랙 아이템',item.track)
+          const track = item.track
           return (
             <li key={index} className="track">
               <img src={item.track.album.images?.[0]?.url} />
@@ -71,6 +91,17 @@ export default function DetailPlaylists() {
                   {item.track.artists.map((artist) => artist.name).join(", ")}
                 </span>
               </h4>
+              <div className="play-bar">
+                <button>
+                  <FontAwesomeIcon icon={faFolderPlus}/>
+                </button>
+                <button>
+                  <FontAwesomeIcon icon={faFileArrowDown}/>
+                </button>
+                <button onClick={()=>{ handlePlayTrack(track) }}>
+                  <FontAwesomeIcon icon={faPlay}/>
+                </button>
+              </div>
             </li>
           );
         })}

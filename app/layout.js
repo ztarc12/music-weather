@@ -3,6 +3,7 @@ import "./globals.css";
 import 'weather-icons/css/weather-icons.css'
 import Link from "next/link";
 import Menu from "@/components/Menu";
+import Player from "@/components/Player";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
         <Menu/>
         <main id="main">
           {children}
+          <Player/>
         </main>
       </body>
     </html>

@@ -52,14 +52,14 @@ export default function PlaylistAlbums({ forecast }) {
          },
        }}>
         {currentAlbums.map((item) => {
-          console.log(item)
           return (
             <SwiperSlide key={item.id}>
               <Link href={`albums/detail/${item.id}`}>
                 <div>
-                  <img src={item.images?.[0]?.url || "/default-artist.png"} alt={item.name} className="artists-image"/>
+                  <img src={item.images?.[0]?.url || "/default-album.png"} alt={item.name} className="artists-image"/>
                   <div>
-                    <h3 className="artists-title">{item.name}</h3>
+                    <h3 className="albums-title">{item.name}</h3>
+                    <p className="albums-artists">{item.artists[0].name}</p>
                   </div>
                 </div>
               </Link>

@@ -1,3 +1,6 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css";
+
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -55,6 +58,7 @@ h1 {
 /* Menu */
 .menu-bar {
   position: fixed;
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;
@@ -196,6 +200,16 @@ h1 {
 .albums-title {
   color: #fff;
   font-size: 14px;
+}
+.albums-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+}
+.albums-artists {
+  color: #aaa;
+  font-size: 12px;
 }
 
 
@@ -372,7 +386,7 @@ h1 {
   border-radius: 8px;
 }
 .name-artist {
-  width: 70%;
+  width: calc(100% - 180px);
   display: flex;
   justify-content: space-between;
   margin: 0 1rem;
@@ -380,4 +394,19 @@ h1 {
 .artist {
   color: #aaa;
   font-weight: 500;
+}
+.play-bar {
+  width: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.play-bar>button {
+  border: none;
+  background: none;
+  width: 100%;
+  color: #fff;
+  font-size: 18px;
+  margin: 0 0.5rem;
+  cursor: pointer;
 }

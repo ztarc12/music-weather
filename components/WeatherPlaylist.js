@@ -18,16 +18,10 @@ export default function WeatherPlaylist({ forecast }){
       playlists: state.playlists
     }), []
   )
-  // console.log(playlistState)
   const { playlists } = useWeatherSpotifyStore(useShallow(playlistState))
-  // console.log("플레이리스트",playlists)
-  // console.log("플레이리스트 items",playlists.items)
   const playlistsItems = playlists.items
-  // console.log('items', playlistsItems)
-  const currentplaylistsItems = useCycleItems(playlistsItems, 1000000000, 8)
-  // const { loadingPlaylists } = useSpotifyMusic(forecast)
+  const currentplaylistsItems = useCycleItems(playlistsItems, 1000000000, 12)
   
-  // if (loadingPlaylists) return <p>플레이리스트를 불러오는 중...</p>
   if(!playlists || !playlists.items || playlists.items.length === 0) return <p>날씨에 맞는 플레이리스트를 찾지 못했습니다.</p>
   return (
     <div className="playlist-cont">

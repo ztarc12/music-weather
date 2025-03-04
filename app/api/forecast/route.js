@@ -4,6 +4,7 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const latitude = searchParams.get('latitude')
   const longitude = searchParams.get('longitude')
+  const days = searchParams.get('days') || 7
 
   if(!latitude || !longitude) {
     return new Response(JSON.stringify({ error: 'latitude(위도), longitude(경도) 파라미터가 필요합니다.'}),{
@@ -11,13 +12,15 @@ export async function GET(req) {
       headers: { 'Content-Type': 'application/json'}
     })
   }
+
   try {
     const response = await axios.get('https://api.open-meteo.com/v1/forecast', {
       params: {
         latitude,
         longitude,
         daily: ['weathercode', 'temperature_2m_max', 'temperature_2m_min'].join(','),
-        timezone: 'Asia/Seoul'
+        timezone: 'Asia/Seoul',
+        days : days
       }
     })
     return new Response(JSON.stringify(response.data), {
