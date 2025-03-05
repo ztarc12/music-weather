@@ -1,6 +1,7 @@
 'use client'
 
 import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore"
+import Link from "next/link"
 import { useMemo } from "react"
 import { useShallow } from 'zustand/shallow'
   
@@ -19,14 +20,16 @@ export default function AlbumsPage() {
       <ul className="detail-cont">
         {albums.map((item)=>{
           return (
-            <li key={item.id} className="">
-              <img src={item.images?.[0]?.url || '/default-album.png'} className="detail-image"/>
-              <div>
-                <h3 className="detail-cont-name">
-                  {item.name}
-                </h3>
-              </div>
-            </li>
+            <Link key={item.id} href={`albums/detail/${item.id}`}>
+              <li className="">
+                <img src={item.images?.[0]?.url || '/default-album.png'} className="detail-image"/>
+                <div>
+                  <h3 className="detail-cont-name">
+                    {item.name}
+                  </h3>
+                </div>
+              </li>
+            </Link>
           )
         })}
       </ul>

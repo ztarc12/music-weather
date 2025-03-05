@@ -70,13 +70,6 @@ export default function DetailArtists() {
                   {item.artists.map((artist) => artist.name).join(", ")}
                 </span>
               </h4>
-              <div>
-                <span>
-                  <img></img>
-                </span>
-                <span>2</span>
-                <span>3</span>
-              </div>
             </li>
           )
         })}

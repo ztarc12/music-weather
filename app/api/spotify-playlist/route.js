@@ -56,8 +56,8 @@ export async function GET(req) {
       headers: { 'Content-Type': 'application/json'}
     })
   } catch (error) {
-    console.error('Spotify playlist fetch error', error)
-    console.log("플레이리스트 API",response)
+    // console.error('Spotify playlist fetch error', error)
+    // console.log("플레이리스트 API",response)
     return new Response(JSON.stringify({ error: 'Error fetching playlist from Spotify'}),
       { status: 500, headers: { 'Content-Type': 'application/json' }}
     )

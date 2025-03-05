@@ -52,7 +52,7 @@ export default function DetailArtists() {
           </li>
           <li>
             <p>외부링크</p>
-            <h3><Link className="links" href={'https://open.spotify.com/album/4vsjx38vw9Lry39Th0VtpO'}>{albumsDetail.external_urls.spotify}</Link></h3>
+            <h3></h3>
           </li>
           <li>
             <p>출시일</p>
