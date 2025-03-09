@@ -20,6 +20,7 @@ async function getSpotifyToken() {
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const artistId = searchParams.get("artistId");
+  let artistName = searchParams.get("artistName")
   const market = searchParams.get("market") || "KR";
 
   if (!artistId) {
@@ -31,11 +32,25 @@ export async function GET(req) {
 
   try {
     const token = await getSpotifyToken();
-    const response = await axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks`, {
+    if (!artistName) {
+      const artistResponse = await axios.get(`https://api.spotify.com/v1/artists/${artistId}`,
+        { headers: {Authorization: `Bearer ${token}`}}
+      )
+      artistName = artistResponse.data.name
+    }
+    const tracksResponse = await axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks`, {
       params: { market, limit: 30 },
       headers: { Authorization: `Bearer ${token}` },
     });
-    return new Response(JSON.stringify(response.data), {
+    const albumsResponse = await axios.get(`https://api.spotify.com/v1/artists/${artistId}/albums`, {
+      params: { market},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const playlistsResponse = await axios.get(`https://api.spotify.com/v1/search`, {
+      params: { q: artistName, type: 'playlist', market},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return new Response(JSON.stringify({topTracks: tracksResponse.data.tracks, albums: albumsResponse.data.items, playlist: playlistsResponse.data.playlists.items}), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

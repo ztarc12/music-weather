@@ -16,6 +16,7 @@ export function useDetailSpotify(id, type) {
 
   useEffect(() => {
     if (!id || !type) return;
+    console.log('실행됨', {id, type})
 
     async function fetchData() {
       setLoading(true);

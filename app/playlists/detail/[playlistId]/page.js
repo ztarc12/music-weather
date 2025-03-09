@@ -25,9 +25,9 @@ export default function DetailPlaylists() {
   );
 
   const { playlists } = useWeatherSpotifyStore(useShallow(playlistState));
-  console.log('플레이리스트',playlists)
+  // console.log('플레이리스트',playlists)
   const playlistDetail = (playlists?.items ?? []).find((p) => p?.id === playlistId) || null;
-  console.log('플레이리스트 디테일',playlistDetail)
+  // console.log('플레이리스트 디테일',playlistDetail)
   
   const { setPlayingTrack, setAudio, setPlayerVisible } = useWeatherSpotifyStore()
 

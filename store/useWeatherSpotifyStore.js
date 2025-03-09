@@ -12,6 +12,7 @@ export const useWeatherSpotifyStore = create(
       isPlayerVisible: false,
       spotifyToken: null,
       isLoggedIn: false,
+      selectAlbums: [],
       setWeeklyForecast: (forecast) => set({ weeklyForecast: forecast }),
       setWeatherImage: (url) => set({ weatherImage: url }),
       setAlbums: (albums) => set({ albums }),
@@ -19,7 +20,8 @@ export const useWeatherSpotifyStore = create(
       setPlaylists: (playlists) => set({ playlists }),
       setPlayingTrack: (track) => set({ playingTrack: track}),
       setIsPlayerVisible:(visible) => set({ isPlayerVisible: visible}),
-      setSpotifyToken: (token) => set({ spotifyToken: token, isLoggedIn: !!token})
+      setSpotifyToken: (token) => set({ spotifyToken: token, isLoggedIn: !!token}),
+      setSelectAlbums: (album) => set({ selectAlbums: album })
     }),
     {
       name: 'waether-spotify-store'

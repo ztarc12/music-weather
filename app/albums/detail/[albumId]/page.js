@@ -4,7 +4,6 @@ import { useDetailSpotify } from "@/hooks/useDetailSpotify";
 import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore";
 import { faFileArrowDown, faFolderPlus, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { useShallow } from "zustand/shallow";
@@ -20,14 +19,14 @@ export default function DetailArtists() {
   const albumsState = useMemo(
     () => (state) => ({
       albums: state.albums,
+      selectAlbums: state.selectAlbums
     }),
     []
   );
 
-  const { albums } = useWeatherSpotifyStore(useShallow(albumsState));
-  // console.log('아티스트',artists)
-  const albumsDetail = albums.find((p) => p.id === albumId);
-  // console.log("상세아티스트", albumsDetail);
+  const { albums,selectAlbums } = useWeatherSpotifyStore(useShallow(albumsState));
+  const albumsDetail = albums.find((p) => p.id === albumId) || selectAlbums.find((p) => p.id === albumId)
+  
   if (loading) return <p>불러오는 중...</p>;
   if (!data) return <p>데이터를 찾을수 없습니다.</p>;
   return (
@@ -35,7 +34,7 @@ export default function DetailArtists() {
       <h1>앨범</h1>
       <div className="info-box">
         <div className="image-flex">
-          <img src={albumsDetail.images?.[0].url} />
+          <img src={albumsDetail.images[0].url}/>
         </div>
         <ul className="info-text">
           <li>
@@ -62,6 +61,7 @@ export default function DetailArtists() {
       </div>
       <ul className="track-box">
         {data.items.map((item)=>{
+          console.log('data.item',item)
           return(
             <li key={item.id} className="track">
               <img src={albumsDetail.images?.[0].url} />

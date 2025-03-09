@@ -34,7 +34,7 @@ export async function GET(req) {
         q: `${weatherQuery} K-pop album`,
         type: 'album',
         market,
-        limit: 32,
+        // limit: 32,
         offset
       },
       headers: { Authorization: `Bearer ${token}` }

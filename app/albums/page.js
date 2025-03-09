@@ -10,8 +10,6 @@ export default function AlbumsPage() {
     () => (state) => ({albums: state.albums}), []
   )
   const { albums } = useWeatherSpotifyStore(useShallow(albumsData));
-  console.log("Albums from store:", albums);
-  console.log(albums)
 
   return (
     <div className="main-cont detail">
@@ -19,6 +17,7 @@ export default function AlbumsPage() {
       {/* <h2>{albums[0].name}</h2> */}
       <ul className="detail-cont">
         {albums.map((item)=>{
+          console.log('앨범데이터',item)
           return (
             <Link key={item.id} href={`albums/detail/${item.id}`}>
               <li className="">
