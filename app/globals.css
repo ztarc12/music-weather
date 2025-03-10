@@ -374,6 +374,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 3rem;
 }
 .track {
   display: flex;
@@ -409,4 +410,32 @@ h1 {
   font-size: 18px;
   margin: 0 0.5rem;
   cursor: pointer;
+}
+.artist-albums-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 1rem;
+}
+.artist-albums-box>a {
+  max-width: 300px;
+}
+.artist-albums-box>a>li {
+  width: 100%;
+  position: relative;
+  color: #aaa;
+}
+.artist-albums>img {
+  width: 100%;
+  border-radius: 8px;
+}
+.pos-r {
+  position: relative;
+}
+.detail-album-bg {
+  position: absolute;
+  left: -20px;
+  z-index: -1;
+  width: 120%;
+  filter: blur(50px);
 }
