@@ -59,18 +59,18 @@ export function useSpotifyMusic(forecast){
 
       try {
         const res = await fetch(
-          `/api/spotify-artists?weather=${encodeURIComponent(query)}&offset=${offset}`
+          `/api/spotify-artists-tracks?weather=${encodeURIComponent(query)}&offset=${offset}`
         )
         if (!res.ok) {
-          throw new Error('Spotify playlist fetch failed')
+          throw new Error('Spotify artist fetch failed')
         }
         const data = await res.json()
         const artistsData = data.artists.items
         if(data.artists && Array.isArray(artistsData)) {
           const filterArtists = artistsData.filter((artist) => artist.popularity >= 30)
           setArtists(filterArtists)
-          // console.log(data)
-          // console.log(filterArtists)
+          // console.log('아티스트',data)
+          // console.log('필터아티스트',filterArtists)
         } else {
           console.error('API response missing artists.items', data)
         }
@@ -96,16 +96,16 @@ export function useSpotifyMusic(forecast){
 
       try {
         const res = await fetch(
-          `/api/spotify-albums?weather=${encodeURIComponent(query)}&offset=${offset}`
+          `/api/spotify-albums-tracks?weather=${encodeURIComponent(query)}&offset=${offset}`
         )
         if (!res.ok) {
-          throw new Error('Spotify playlist fetch failed')
+          throw new Error('Spotify album fetch failed')
         }
         const data = await res.json()
         if(data.albums && Array.isArray(data.albums.items)) {
           setAlbums(data.albums.items)
-        //  console.log(data)
-        //  console.log(albums)
+        //  console.log('앨범',data)
+        //  console.log('set앨범',albums)
         } else {
         console.error('API response missing albums.items', data)
         }

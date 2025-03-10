@@ -30,25 +30,43 @@ async function getSpotifyToken() {
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url)
+  const weatherQuery = searchParams.get('weather') || '맑은 날'
   const playlistId = searchParams.get('playlistId')
-  // const market = 'US'
+  const offset = searchParams.get('offset')
 
-  if(!playlistId) {
+  try {
+    const token = await getSpotifyToken()
+    if(playlistId) {
+      const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,{
+        params: { limit: 60},
+        headers: { Authorization: `Bearer ${token}`}
+      })
+      return new Response(JSON.stringify(response.data), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+    }
+    if(weatherQuery) {
+      const response = await axios.get('https://api.spotify.com/v1/search', {
+        params: {
+          q: `${weatherQuery} (K-pop OR K-r&b OR K-ballard)`,
+          type: 'playlist',
+          // market: market,
+          limit: 32,
+          offset
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return new Response(JSON.stringify(response.data), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json'}
+      })
+    }
     return new Response(JSON.stringify({ error: 'playlistId 파라미터가 필요합니다.' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json'}
-    })
-  }
-  try {
-    const token = await getSpotifyToken()
-    const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,{
-      // params: { market, limit: 60},
-      params: { limit: 60},
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    return new Response(JSON.stringify(response.data), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
     })
   } catch (error) {
     console.error('Error fetching playlist tracks:', error)

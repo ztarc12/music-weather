@@ -4,7 +4,6 @@ import { useDetailSpotify } from "@/hooks/useDetailSpotify";
 import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { useShallow } from "zustand/shallow";
 
@@ -12,7 +11,7 @@ export default function DetailArtists() {
   const { artistId } = useParams();
   // console.log('아티스트아디',artistId)
   const { data, loading, error } = useDetailSpotify(artistId, "artist");
-  // console.log("트랙", data);
+  console.log("트랙", data);
   // console.log('트랙안에 트랙', data.tracks)
   // const artistPlaylists = data?.playlist.filter(item => item !== null) || []
   // console.log('필터된플레이리스트', artistPlaylists)

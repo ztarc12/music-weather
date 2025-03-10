@@ -20,38 +20,59 @@ async function getSpotifyToken() {
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const artistId = searchParams.get("artistId");
+  const weatherQuery = searchParams.get('weather') || '맑은 날'
+  const offset = searchParams.get('offset') || 0
   let artistName = searchParams.get("artistName")
   const market = searchParams.get("market") || "KR";
 
-  if (!artistId) {
-    return new Response(JSON.stringify({ error: "artistId 파라미터가 필요합니다." }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
 
   try {
     const token = await getSpotifyToken();
-    if (!artistName) {
-      const artistResponse = await axios.get(`https://api.spotify.com/v1/artists/${artistId}`,
-        { headers: {Authorization: `Bearer ${token}`}}
-      )
-      artistName = artistResponse.data.name
+    
+    if (artistId) {
+      if (!artistName) {
+        const artistResponse = await axios.get(`https://api.spotify.com/v1/artists/${artistId}`,
+          { headers: {Authorization: `Bearer ${token}`}}
+        )
+        artistName = artistResponse.data.name
+      }
+      const tracksResponse = await axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks`, {
+        params: { market, limit: 30 },
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const albumsResponse = await axios.get(`https://api.spotify.com/v1/artists/${artistId}/albums`, {
+        params: { market},
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const playlistsResponse = await axios.get(`https://api.spotify.com/v1/search`, {
+        params: { q: artistName, type: 'playlist', market},
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return new Response(JSON.stringify({topTracks: tracksResponse.data.tracks, albums: albumsResponse.data.items, playlist: playlistsResponse.data.playlists.items}), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
     }
-    const tracksResponse = await axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks`, {
-      params: { market, limit: 30 },
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const albumsResponse = await axios.get(`https://api.spotify.com/v1/artists/${artistId}/albums`, {
-      params: { market},
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const playlistsResponse = await axios.get(`https://api.spotify.com/v1/search`, {
-      params: { q: artistName, type: 'playlist', market},
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return new Response(JSON.stringify({topTracks: tracksResponse.data.tracks, albums: albumsResponse.data.items, playlist: playlistsResponse.data.playlists.items}), {
-      status: 200,
+    if(weatherQuery) {
+      const response = await axios.get('https://api.spotify.com/v1/search',{
+        params: {
+          q: `${weatherQuery} K-pop`,
+          type: 'artist',
+          market,
+          limit: 32,
+          offset
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return new Response(JSON.stringify(response.data), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json'}
+      })
+    }
+    return new Response(JSON.stringify({ error: "weather 또는 artistId 파라미터가 필요합니다." }), {
+      status: 400,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {

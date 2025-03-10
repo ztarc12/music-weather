@@ -32,7 +32,6 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const weatherQuery = searchParams.get('weather') || '맑은 날'
   const offset = searchParams.get('offset')
-  // const market = 'KR'
 
   try {
     const token = await getSpotifyToken()
@@ -49,7 +48,6 @@ export async function GET(req) {
         Authorization: `Bearer ${token}`
       }
     })
-    // console.log("플레이리스트 API",response)
 
     return new Response(JSON.stringify(response.data), {
       status: 200,

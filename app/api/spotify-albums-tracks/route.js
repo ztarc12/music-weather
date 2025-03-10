@@ -20,23 +20,40 @@ async function getSpotifyToken() {
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const albumId = searchParams.get("albumId");
+  const weatherQuery = searchParams.get('weather') || '맑은 날'
   const market = searchParams.get("market") || "KR";
-
-  if (!albumId) {
-    return new Response(JSON.stringify({ error: "albumId 파라미터가 필요합니다." }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
+  const offset = searchParams.get('offset') || 0
 
   try {
     const token = await getSpotifyToken();
-    const response = await axios.get(`https://api.spotify.com/v1/albums/${albumId}/tracks`, {
-      params: { market, limit: 30 },
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return new Response(JSON.stringify(response.data), {
-      status: 200,
+    if(albumId) {
+      const AlbumsTracksResponse = await axios.get(`https://api.spotify.com/v1/albums/${albumId}/tracks`, {
+        params: { market, limit: 30 },
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return new Response(JSON.stringify(AlbumsTracksResponse.data), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    if(weatherQuery) {
+      const response = await axios.get('https://api.spotify.com/v1/search', {
+        params: {
+          q: `${weatherQuery} K-pop album`,
+          type: 'album',
+          market,
+          limit: 32,
+          offset
+        },
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      return new Response(JSON.stringify(response.data),{
+        status: 200,
+        headers: { 'Content-Type': 'application/json'}
+      })
+    }
+    return new Response(JSON.stringify({ error: "waether 또는 albumId 파라미터가 필요합니다." }), {
+      status: 400,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
