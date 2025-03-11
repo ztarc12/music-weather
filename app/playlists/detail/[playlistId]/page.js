@@ -8,6 +8,7 @@ import { useShallow } from "zustand/shallow";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown, faFolderPlus, faPlay } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 export default function DetailPlaylists() {
   const { playlistId } = useParams();
@@ -15,7 +16,7 @@ export default function DetailPlaylists() {
   if (!playlistId) return <p>잘못된 접근입니다.</p>;
 
   const { data, loading, error } = useDetailSpotify(playlistId, 'playlist');
-  console.log('데이터',data)
+  // console.log('데이터',data)
 
   const playlistState = useMemo(
     () => (state) => ({
@@ -29,19 +30,26 @@ export default function DetailPlaylists() {
   const playlistDetail = (playlists?.items ?? []).find((p) => p?.id === playlistId) || null;
   // console.log('플레이리스트 디테일',playlistDetail)
   
-  const { setPlayingTrack, setAudio, setPlayerVisible } = useWeatherSpotifyStore()
+  const { setPlayingTrack, addTrackToPlaylist, setIsPlayerVisible } = useWeatherSpotifyStore()
 
-  const handlePlayTrack = (track) => {
-    if(!track.preview_url) {
-      alert('미리 듣기가 지원되지 않는 트랙입니다.')
-      return
+  const handlePlayTrack = async (track) => {
+    try {
+      const searchResponse = await axios.get("/api/youtube/search", {
+        params: { track: track.name, artist: track.artists[0]?.name}
+      })
+      if (searchResponse.data.videoId) {
+        const videoId = searchResponse.data.videoId
+        const trackWithVideo = { ...track, videoId }
+        setPlayingTrack(trackWithVideo)
+        addTrackToPlaylist(trackWithVideo)
+        setIsPlayerVisible(true)
+      } else {
+        alert('플레이어 정보가 없습니다.')
+      }
+    } catch (error) {
+      console.error('트랙 재생 에러', error)
+      alert('트랙 재생 중 오류가 발생 했습니다.')
     }
-    const newAudio = new Audio(track.preview_url)
-    newAudio.play()
-
-    setAudio(newAudio)
-    setPlayingTrack(track)
-    setPlayerVisible(true)
   }
 
   if (loading) return <p>불러오는 중...</p>;
@@ -79,8 +87,6 @@ export default function DetailPlaylists() {
       </div>
       <ul className="track-box">
         {data?.items.map((item, index) => {
-          console.log('아이템',item)
-          console.log('트랙 아이템',item.track)
           const track = item.track
           return (
             <li key={index} className="track">

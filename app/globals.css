@@ -439,3 +439,10 @@ h1 {
   width: 120%;
   filter: blur(50px);
 }
+
+.player {
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+}
