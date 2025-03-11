@@ -35,7 +35,7 @@ export default function Home() {
             <WeatherPlaylist forecast={weeklyForecast}/>   
             <PlaylistArtists forecast={weeklyForecast}/>
             <PlaylistAlbums forecast={weeklyForecast}/>
-      <Footer/>
+            <Footer/>
           </div>
         </div>
       </div>
