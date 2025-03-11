@@ -29,6 +29,7 @@ export default function WeeklyForecast({ forecast }) {
       <ul className="weather-container">
         {
           forecastArray.map((date, index)=>{
+            console.log('날씨 코드', date)
             return(
               <li key={index} className="card-weather">
                 <div className="date">

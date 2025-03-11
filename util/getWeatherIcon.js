@@ -1,7 +1,7 @@
 export function getWeatherIcon(weathercode) {
-  if(weathercode === 0) {
+  if([0, 1].includes(weathercode)) {
     return 'wi-day-sunny'
-  } else if ([1, 2, 3].includes(weathercode)) {
+  } else if ([2, 3].includes(weathercode)) {
     return 'wi-day-cloudy'
   } else if ([45, 48].includes(weathercode)) {
     return 'wi-fog'

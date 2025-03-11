@@ -1,8 +1,8 @@
 export function getWeatherTitle(weathercode) {
   const code = Number(weathercode)
-  if (code === 0) {
+  if (code === 0, 1) {
     return '날씨가 맑아요'
-  } else if ([1, 2, 3].includes(code)) {
+  } else if ([2, 3].includes(code)) {
     return '구름이 많아요'
   } else if ([45, 48].includes(code)) {
     return '안개가 꼈네요'
