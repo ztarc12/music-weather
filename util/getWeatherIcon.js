@@ -11,7 +11,7 @@ export function getWeatherIcon(weathercode) {
     return 'wi-rain'
   } else if ([66, 67].includes(weathercode)) {
     return 'wi-rain-mix'
-  } else if ([71, 73, 75].includes(weathercode)) {
+  } else if ([71, 73, 75, 85, 86].includes(weathercode)) {
     return 'wi-snow'
   } else if ([80, 81, 82].includes(weathercode)) {
     return 'wi-showers'

@@ -37,7 +37,7 @@ h1 {
   display: flex;
   flex-direction: column;
   overflow: auto;
-  margin-bottom: 100px;
+  /* margin-bottom: 100px; */
 }
 .bg-cover{
   width: 100%;
@@ -458,8 +458,10 @@ h1 {
 }
 .prograss-box {
   position: absolute;
-  top: -15px;
+  /* top: -5px; */
   width: 100%;
+  height: 5px;
+  background: #ccc;
 }
 .player>div {
   display: flex;
@@ -468,26 +470,55 @@ h1 {
 .test { 
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .playing-info {
   display: flex;
-  /* align-items: center; */
+  width: 70%;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.3rem;
 }
 .prograss-container {
   width: 100%;
-  background: #ccc;
   height: 5px;
-  margin: 10px 0;
+  /* margin: 10px 0; */
   cursor: pointer;
   z-index: 10;
 }
 .prograss-bar {
-  background: #f00;
   height: 100%;
-  z-index: 12;
+  background: rgb(90, 45, 95);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .hidden {
-  /* visibility: hidden; */
   display: none;
+}
+.title-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title-name>h3 {
+  font-size: 1rem;
+}
+.title-name>p {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+.playing-img>img {
+  padding: 0.3rem;
+  width: 5rem;
+}
+.player-btn-box {
+}
+.player-btn-box>button {
+  margin: 0.4rem;
+  background-color: transparent;
+  border: none;
+  color: #bbb;
+  font-size: 1rem;
+  cursor: pointer;
 }

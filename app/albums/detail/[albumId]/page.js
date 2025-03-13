@@ -1,6 +1,7 @@
 "use client";
 
 import { useDetailSpotify } from "@/hooks/useDetailSpotify";
+import { useTrackPlayer } from "@/hooks/useTrackPlayer";
 import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore";
 import { faFileArrowDown, faFolderPlus, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,17 +16,18 @@ export default function DetailArtists() {
   // console.log("트랙", data);
   // console.log('data상세',data.items)
   // console.log('트랙안에 트랙', data.tracks)
+  const { playTrack, addTrack } = useTrackPlayer()
 
   const albumsState = useMemo(
     () => (state) => ({
       albums: state.albums,
-      selectAlbums: state.selectAlbums
+      selectAlbum: state.selectAlbum
     }),
     []
   );
 
-  const { albums,selectAlbums } = useWeatherSpotifyStore(useShallow(albumsState));
-  const albumsDetail = albums.find((p) => p.id === albumId) || selectAlbums.find((p) => p.id === albumId)
+  const { albums,selectAlbum } = useWeatherSpotifyStore(useShallow(albumsState));
+  const albumsDetail = albums?.find((p) => p.id === albumId) || selectAlbum?.find((p) => p.id === albumId)
   
   if (loading) return <p>불러오는 중...</p>;
   if (!data) return <p>데이터를 찾을수 없습니다.</p>;
@@ -57,8 +59,10 @@ export default function DetailArtists() {
           </ul>
         </div>
         <ul className="track-box">
-          {data.items.map((item)=>{
-            console.log('data.item',item)
+          {data?.items.map((item)=>{
+            const track = item.track
+            console.log('앨범',track)
+            console.log(item)
             return(
               <li key={item.id} className="track">
                 <img src={albumsDetail.images?.[0].url} />
@@ -72,10 +76,10 @@ export default function DetailArtists() {
                   <button>
                     <FontAwesomeIcon icon={faFolderPlus}/>
                   </button>
-                  <button>
+                  <button onClick={() => { addTrack(track)}}>
                     <FontAwesomeIcon icon={faFileArrowDown}/>
                   </button>
-                  <button>
+                  <button onClick={() => { playTrack(track)}}>
                     <FontAwesomeIcon icon={faPlay}/>
                   </button>
                 </div>

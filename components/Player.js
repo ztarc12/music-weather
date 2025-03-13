@@ -11,6 +11,7 @@ export default function Player(){
   const { playingTrack, playerPlaylist, currentTrackIndex, isPlaying, setPlayingTrack, nextTrack, prevTrack, togglePlay, setIsPlayerVisible, removeTrackPlaylist } = useWeatherSpotifyStore()
   const [ player, setPlayer ] = useState(null)
   const [ prograss, setPrograss ] = useState(0)
+  console.log('플레이어트랙', playingTrack)
   const opts = {
     height: '50',
     width: '240',
@@ -86,26 +87,32 @@ export default function Player(){
         <div className="test">
           {playingTrack ? (
             <div className="playing-info">
-              <h3>{playingTrack.name}</h3>
-              <p>{playingTrack.artists.map(artist => artist.name).join(', ')}</p>
+              <div className="playing-img">
+                <img src={playingTrack.album.images[0].url}/>
+              </div>
+              <div className="title-name">
+                <h3>{playingTrack.name}</h3>
+                <p>{playingTrack.artists.map(artist => artist.name).join(', ')}</p>
+              </div>
+              <div className="player-btn-box">
+                <button onClick={prevTrack} className="prev-btn">
+                  <FontAwesomeIcon icon={faBackwardStep}/>
+                </button>
+                <button onClick={togglePlay} className="playing-btn">
+                  {isPlaying ? (<FontAwesomeIcon icon={faPause}/>) : (<FontAwesomeIcon icon={faPlay}/>)}
+                </button>
+                <button onClick={nextTrack} className="next-btn">
+                  <FontAwesomeIcon icon={faForwardStep}/>
+                </button>
+                <button onClick={()=> {setIsPlayerVisible(false)}} className="close-btn">
+                  <FontAwesomeIcon icon={faXmark}/>
+                </button>
+              </div>
             </div>
           ) : (
             <p>재생 중인 곡이 없습니다.</p>
           )}
-          <div>
-            <button onClick={prevTrack}>
-              <FontAwesomeIcon icon={faBackwardStep}/>
-            </button>
-            <button onClick={togglePlay}>
-              {isPlaying ? (<FontAwesomeIcon icon={faPause}/>) : (<FontAwesomeIcon icon={faPlay}/>)}
-            </button>
-            <button onClick={nextTrack}>
-              <FontAwesomeIcon icon={faForwardStep}/>
-            </button>
-            <button onClick={()=> {setIsPlayerVisible(false)}}>
-              <FontAwesomeIcon icon={faXmark}/>
-            </button>
-          </div>
+          
         </div>
       </div>
       {/* <ul>

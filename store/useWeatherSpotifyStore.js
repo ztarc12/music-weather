@@ -14,6 +14,7 @@ export const useWeatherSpotifyStore = create(
       currentTrackIndex: 0,
       isPlaying: false,
       isPlayerVisible: false,
+      selectAlbum: null,
       setWeeklyForecast: (forecast) => set({ weeklyForecast: forecast }),
       setWeatherImage: (url) => set({ weatherImage: url }),
       setAlbums: (albums) => set({ albums }),
@@ -59,7 +60,8 @@ export const useWeatherSpotifyStore = create(
           currentTrackIndex: newCureentIndex,
           playingTrack: newPlaylist[newCureentIndex] || null
         }
-      })
+      }),
+      setSelectAlbum: (album) => set({selectAlbum: album})
     }),
     {
       name: 'waether-spotify-store'

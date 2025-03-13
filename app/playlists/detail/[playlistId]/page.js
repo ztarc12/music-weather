@@ -9,6 +9,7 @@ import { useShallow } from "zustand/shallow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown, faFolderPlus, faPlay } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useTrackPlayer } from "@/hooks/useTrackPlayer";
 
 export default function DetailPlaylists() {
   const { playlistId } = useParams();
@@ -17,7 +18,7 @@ export default function DetailPlaylists() {
 
   const { data, loading, error } = useDetailSpotify(playlistId, 'playlist');
   // console.log('데이터',data)
-
+  const { playTrack, addTrack } = useTrackPlayer()
   const playlistState = useMemo(
     () => (state) => ({
       playlists: state.playlists,
@@ -29,45 +30,8 @@ export default function DetailPlaylists() {
   // console.log('플레이리스트',playlists)
   const playlistDetail = (playlists?.items ?? []).find((p) => p?.id === playlistId) || null;
   // console.log('플레이리스트 디테일',playlistDetail)
-  
-  const { setPlayingTrack, addTrackToPlaylist, setIsPlayerVisible } = useWeatherSpotifyStore()
 
-  const handlePlayTrack = async (track) => {
-    try {
-      const searchResponse = await axios.get("/api/youtube/search", {
-        params: { track: track.name, artist: track.artists[0]?.name}
-      })
-      if (searchResponse.data.videoId) {
-        const videoId = searchResponse.data.videoId
-        const trackWithVideo = { ...track, videoId }
-        setPlayingTrack(trackWithVideo)
-        addTrackToPlaylist(trackWithVideo)
-        setIsPlayerVisible(true)
-      } else {
-        alert('플레이어 정보가 없습니다.')
-      }
-    } catch (error) {
-      console.error('트랙 재생 에러', error)
-      alert('트랙 재생 중 오류가 발생 했습니다.')
-    }
-  }
-  const handleAddTrack = async (track) => {
-    try {
-      const searchResponse = await axios.get("/api/youtube/search", {
-        params: { track: track.name, artist: track.artists[0]?.name}
-      })
-      if (searchResponse.data.videoId) {
-        const videoId = searchResponse.data.videoId
-        const trackWithVideo = { ...track, videoId }
-        addTrackToPlaylist(trackWithVideo)
-      } else {
-        alert('플레이어 정보가 없습니다.')
-      }
-    } catch (error) {
-      console.error('곡 추가 에러', error)
-      alert('곡 추가 중 오류가 발생 했습니다.')
-    }
-  }
+  
 
   if (loading) return <p>불러오는 중...</p>;
   if (!data) return <p>데이터를 찾을수 없습니다.</p>;
@@ -105,6 +69,8 @@ export default function DetailPlaylists() {
       <ul className="track-box">
         {data?.items.map((item, index) => {
           const track = item.track
+          console.log('플레이리스트', track)
+          console.log(item)
           return (
             <li key={index} className="track">
               <img src={item.track.album.images?.[0]?.url} />
@@ -118,15 +84,15 @@ export default function DetailPlaylists() {
                 <button>
                   <FontAwesomeIcon icon={faFolderPlus}/>
                 </button>
-                <button onClick={()=>{ handleAddTrack(track) }}>
+                <button onClick={()=>{ addTrack(track) }}>
                   <FontAwesomeIcon icon={faFileArrowDown}/>
                 </button>
-                <button onClick={()=>{ handlePlayTrack(track) }}>
+                <button onClick={()=>{ playTrack(track) }}>
                   <FontAwesomeIcon icon={faPlay}/>
                 </button>
               </div>
             </li>
-          );
+          )
         })}
       </ul>
     </div>
