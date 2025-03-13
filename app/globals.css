@@ -37,6 +37,7 @@ h1 {
   display: flex;
   flex-direction: column;
   overflow: auto;
+  margin-bottom: 100px;
 }
 .bg-cover{
   width: 100%;
@@ -441,8 +442,52 @@ h1 {
 }
 
 .player {
+  /* background: rgba(255,255,255,0.4); */
+  background: #222;
+  /* padding-top: 5rem; */
+  color: #fff;
   position: fixed;
   bottom: 0;
-  z-index: 100;
+  z-index: 10;
   display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.p-1rem {
+  /* padding: 1rem; */
+}
+.prograss-box {
+  position: absolute;
+  top: -15px;
+  width: 100%;
+}
+.player>div {
+  display: flex;
+  width: 100%;
+}
+.test { 
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.playing-info {
+  display: flex;
+  /* align-items: center; */
+}
+.prograss-container {
+  width: 100%;
+  background: #ccc;
+  height: 5px;
+  margin: 10px 0;
+  cursor: pointer;
+  z-index: 10;
+}
+.prograss-bar {
+  background: #f00;
+  height: 100%;
+  z-index: 12;
+}
+.hidden {
+  /* visibility: hidden; */
+  display: none;
 }

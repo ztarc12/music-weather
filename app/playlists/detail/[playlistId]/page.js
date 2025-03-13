@@ -51,6 +51,23 @@ export default function DetailPlaylists() {
       alert('트랙 재생 중 오류가 발생 했습니다.')
     }
   }
+  const handleAddTrack = async (track) => {
+    try {
+      const searchResponse = await axios.get("/api/youtube/search", {
+        params: { track: track.name, artist: track.artists[0]?.name}
+      })
+      if (searchResponse.data.videoId) {
+        const videoId = searchResponse.data.videoId
+        const trackWithVideo = { ...track, videoId }
+        addTrackToPlaylist(trackWithVideo)
+      } else {
+        alert('플레이어 정보가 없습니다.')
+      }
+    } catch (error) {
+      console.error('곡 추가 에러', error)
+      alert('곡 추가 중 오류가 발생 했습니다.')
+    }
+  }
 
   if (loading) return <p>불러오는 중...</p>;
   if (!data) return <p>데이터를 찾을수 없습니다.</p>;
@@ -101,7 +118,7 @@ export default function DetailPlaylists() {
                 <button>
                   <FontAwesomeIcon icon={faFolderPlus}/>
                 </button>
-                <button>
+                <button onClick={()=>{ handleAddTrack(track) }}>
                   <FontAwesomeIcon icon={faFileArrowDown}/>
                 </button>
                 <button onClick={()=>{ handlePlayTrack(track) }}>

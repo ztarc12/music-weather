@@ -11,7 +11,7 @@ export function useWeather(){
   // console.log("로드된 날씨 코드",weeklyForecast)
 
   useEffect(()=>{
-    if (weeklyForecast || weatherImage) return;
+    // if (weeklyForecast || weatherImage) return;
 
       async function loadForecast(extraDays = 0) {
         try {
@@ -24,7 +24,6 @@ export function useWeather(){
           if(data && data.daily) {
             // console.log('날씨데이터',data)
             setWeeklyForecast(data.daily)
-            // console.log('날씨코드', firstWeatherCode)
             const filteredData = filterForecast(data.daily)
 
             if (filteredData.needMoreData) {
@@ -59,7 +58,7 @@ export function useWeather(){
         }
       }
       loadForecast()
-    }, [weeklyForecast, weatherImage, setWeeklyForecast, setWeatherImage])
+    }, [ setWeeklyForecast, setWeatherImage])
 
     return
 }

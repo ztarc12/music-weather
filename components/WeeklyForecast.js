@@ -2,7 +2,6 @@ import { getWeatherIcon } from "@/util/getWeatherIcon"
 import { getWeatherTitle } from "@/util/getWeatherTitle"
 
 export default function WeeklyForecast({ forecast }) {
-  // console.log('위클리', forecast)
   if(!forecast || !forecast.time || !Array.isArray(forecast.time)) {
     return <p>예보 데이터 불러오는 중...</p>
   }
@@ -29,7 +28,7 @@ export default function WeeklyForecast({ forecast }) {
       <ul className="weather-container">
         {
           forecastArray.map((date, index)=>{
-            console.log('날씨 코드', date)
+            // console.log('날씨 코드', date)
             return(
               <li key={index} className="card-weather">
                 <div className="date">

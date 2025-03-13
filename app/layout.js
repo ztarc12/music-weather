@@ -1,9 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import 'weather-icons/css/weather-icons.css'
-import Link from "next/link";
 import Menu from "@/components/Menu";
 import Player from "@/components/Player";
+import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore";
+import PlayerWrapper from "@/components/PlayerWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
         <Menu/>
         <main id="main">
           {children}
-          <Player/>
+          <PlayerWrapper/>
         </main>
       </body>
     </html>
