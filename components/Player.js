@@ -88,11 +88,11 @@ export default function Player(){
           {playingTrack ? (
             <div className="playing-info">
               <div className="playing-img">
-                <img src={playingTrack.album.images[0].url}/>
+                {/* <img src={playingTrack.album.images[0].url}/> */}
               </div>
               <div className="title-name">
-                <h3>{playingTrack.name}</h3>
-                <p>{playingTrack.artists.map(artist => artist.name).join(', ')}</p>
+                {/* <h3>{playingTrack.name}</h3> */}
+                {/* <p>{playingTrack.artists.map(artist => artist.name).join(', ')}</p> */}
               </div>
               <div className="player-btn-box">
                 <button onClick={prevTrack} className="prev-btn">

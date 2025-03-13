@@ -16,7 +16,7 @@ export default function DetailArtists() {
   // console.log("트랙", data);
   // console.log('data상세',data.items)
   // console.log('트랙안에 트랙', data.tracks)
-  const { playTrack, addTrack } = useTrackPlayer()
+  const { playTrack, addTrack, albumPlayTrack } = useTrackPlayer()
 
   const albumsState = useMemo(
     () => (state) => ({
@@ -61,8 +61,6 @@ export default function DetailArtists() {
         </div>
         <ul className="track-box">
           {data?.items.map((item)=>{
-            const track = item.track
-            console.log('앨범',track)
             console.log(item)
             return(
               <li key={item.id} className="track">
@@ -77,10 +75,10 @@ export default function DetailArtists() {
                   <button>
                     <FontAwesomeIcon icon={faFolderPlus}/>
                   </button>
-                  <button onClick={() => { addTrack(track)}}>
+                  <button onClick={() => { addTrack(item)}}>
                     <FontAwesomeIcon icon={faFileArrowDown}/>
                   </button>
-                  <button onClick={() => { playTrack(track)}}>
+                  <button onClick={() => { albumPlayTrack(item)}}>
                     <FontAwesomeIcon icon={faPlay}/>
                   </button>
                 </div>

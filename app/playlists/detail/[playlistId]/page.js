@@ -70,8 +70,6 @@ export default function DetailPlaylists() {
       <ul className="track-box">
         {data?.items.map((item, index) => {
           const track = item.track
-          console.log('플레이리스트', track)
-          console.log(item)
           return (
             <li key={index} className="track">
               <img src={item.track.album.images?.[0]?.url} />
