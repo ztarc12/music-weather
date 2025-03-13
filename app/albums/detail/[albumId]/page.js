@@ -27,7 +27,8 @@ export default function DetailArtists() {
   );
 
   const { albums,selectAlbum } = useWeatherSpotifyStore(useShallow(albumsState));
-  const albumsDetail = albums?.find((p) => p.id === albumId) || selectAlbum?.find((p) => p.id === albumId)
+  const albumArray = Array.isArray(albums) ? albums : (albums?.items ?? [])
+  const albumsDetail = albumArray.find((p) => p.id === albumId) || selectAlbum?.find((p) => p.id === albumId)
   
   if (loading) return <p>불러오는 중...</p>;
   if (!data) return <p>데이터를 찾을수 없습니다.</p>;

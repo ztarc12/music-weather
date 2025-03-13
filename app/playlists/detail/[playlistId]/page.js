@@ -8,7 +8,6 @@ import { useShallow } from "zustand/shallow";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown, faFolderPlus, faPlay } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import { useTrackPlayer } from "@/hooks/useTrackPlayer";
 
 export default function DetailPlaylists() {
@@ -28,7 +27,9 @@ export default function DetailPlaylists() {
 
   const { playlists } = useWeatherSpotifyStore(useShallow(playlistState));
   // console.log('플레이리스트',playlists)
-  const playlistDetail = (playlists?.items ?? []).find((p) => p?.id === playlistId) || null;
+  const playlistArray = Array.isArray(playlists) ? playlists : (playlists?.items ?? [])
+  const playlistDetail = playlistArray.find((p) => p?.id === playlistId) || null;
+  // const playlistDetail = (playlists?.items ?? []).find((p) => p?.id === playlistId) || null;
   // console.log('플레이리스트 디테일',playlistDetail)
 
   
