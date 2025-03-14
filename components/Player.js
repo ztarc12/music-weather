@@ -8,10 +8,10 @@ import YouTube from "react-youtube"
 import PrograssBar from "./PrograssBar"
 
 export default function Player(){
-  const { playingTrack, playerPlaylist, currentTrackIndex, isPlaying, setPlayingTrack, nextTrack, prevTrack, togglePlay, setIsPlayerVisible, removeTrackPlaylist } = useWeatherSpotifyStore()
+  const { playingTrack, playerPlaylist, currentTrackIndex, isPlaying, setPlayingTrack, nextTrack, prevTrack, togglePlay, setIsPlayerVisible, removeTrackPlaylist, playingAlbum } = useWeatherSpotifyStore()
   const [ player, setPlayer ] = useState(null)
   const [ prograss, setPrograss ] = useState(0)
-  console.log('플레이어트랙', playingTrack)
+  console.log('플레이어앨범', playingAlbum)
   const opts = {
     height: '50',
     width: '240',
@@ -89,10 +89,28 @@ export default function Player(){
             <div className="playing-info">
               <div className="playing-img">
                 {/* <img src={playingTrack.album.images[0].url}/> */}
+                {
+                  playingTrack?.album?.images?.[0]?.url ? (
+                    <img src={playingTrack.album.images[0].url}/>
+                  ) : playingAlbum?.images?.[0]?.url ? (
+                    <img src={playingAlbum.images[0].url}/>
+                  ) : (<></>)
+                }
               </div>
               <div className="title-name">
-                {/* <h3>{playingTrack.name}</h3> */}
-                {/* <p>{playingTrack.artists.map(artist => artist.name).join(', ')}</p> */}
+                  {
+                    playingTrack ? (
+                      <>
+                        <h3>{playingTrack.name}</h3>
+                        <p>{playingTrack.artists.map(artist => artist.name).join(', ')}</p>
+                      </>
+                    ) : playingAlbum ? (
+                      <>
+                        <h3>{playingAlbum.name}</h3>
+                        <p>{playingAlbum.artists.map(artist => artist.name).join(', ')}</p>
+                      </>
+                    ) : (<></>)
+                }
               </div>
               <div className="player-btn-box">
                 <button onClick={prevTrack} className="prev-btn">

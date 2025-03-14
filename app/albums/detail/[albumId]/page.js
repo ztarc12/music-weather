@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { useShallow } from "zustand/shallow";
 
-export default function DetailArtists() {
+export default function DetailAlbums() {
   const { albumId } = useParams();
   // console.log('앨범아디',albumId)
   const { data, loading, error } = useDetailSpotify(albumId, "album");
@@ -21,12 +21,13 @@ export default function DetailArtists() {
   const albumsState = useMemo(
     () => (state) => ({
       albums: state.albums,
-      selectAlbum: state.selectAlbum
+      selectAlbum: state.selectAlbum,
+      setPlayingAlbum: state.setPlayingAlbum
     }),
     []
   );
 
-  const { albums,selectAlbum } = useWeatherSpotifyStore(useShallow(albumsState));
+  const { albums,selectAlbum, setPlayingAlbum } = useWeatherSpotifyStore(useShallow(albumsState));
   const albumArray = Array.isArray(albums) ? albums : (albums?.items ?? [])
   const albumsDetail = albumArray.find((p) => p.id === albumId) || selectAlbum?.find((p) => p.id === albumId)
   
@@ -61,7 +62,7 @@ export default function DetailArtists() {
         </div>
         <ul className="track-box">
           {data?.items.map((item)=>{
-            console.log(item)
+            // console.log(item)
             return(
               <li key={item.id} className="track">
                 <img src={albumsDetail.images?.[0].url} />
@@ -78,7 +79,7 @@ export default function DetailArtists() {
                   <button onClick={() => { addTrack(item)}}>
                     <FontAwesomeIcon icon={faFileArrowDown}/>
                   </button>
-                  <button onClick={() => { albumPlayTrack(item)}}>
+                  <button onClick={() => { albumPlayTrack(item); setPlayingAlbum(albumsDetail)}}>
                     <FontAwesomeIcon icon={faPlay}/>
                   </button>
                 </div>

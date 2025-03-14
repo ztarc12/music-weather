@@ -15,6 +15,7 @@ export const useWeatherSpotifyStore = create(
       isPlaying: false,
       isPlayerVisible: false,
       selectAlbum: null,
+      playingAlbum: null,
       setWeeklyForecast: (forecast) => set({ weeklyForecast: forecast }),
       setWeatherImage: (url) => set({ weatherImage: url }),
       setAlbums: (albums) => set({ albums }),
@@ -61,7 +62,8 @@ export const useWeatherSpotifyStore = create(
           playingTrack: newPlaylist[newCureentIndex] || null
         }
       }),
-      setSelectAlbum: (album) => set({selectAlbum: album})
+      setSelectAlbum: (album) => set({selectAlbum: album}),
+      setPlayingAlbum: (album) => set({ playingAlbum: album })
     }),
     {
       name: 'waether-spotify-store'
