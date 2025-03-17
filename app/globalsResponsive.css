@@ -1,0 +1,32 @@
+@media (max-width: 1199.98px) {
+  .image-grid {
+    min-width: 250px;
+  }
+}
+@media (max-width: 767.98px) {
+}
+@media (max-width: 668.98px) {
+  .name-artist {
+    display: flex;
+    flex-direction: column;
+  }
+  .artist {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 575.98px) {
+  .image-grid,
+  .image-flex {
+    width: 100%;
+    min-width: none;
+    max-width: none;
+    margin-bottom: 1rem;
+  }
+  .info-text {
+    margin-left: 0;
+  }
+  .info-box {
+    flex-direction: column;
+  }
+  
+}
