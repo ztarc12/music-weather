@@ -1,3 +1,21 @@
+프로젝트 이슈
+
+// 문제점
+![스크린샷 2025-02-25 221309](https://github.com/user-attachments/assets/98144d52-b3e9-4bb0-abeb-269aa3495579)
+
+![스크린샷 2025-02-25 221416](https://github.com/user-attachments/assets/22abf968-2c4e-450c-9129-47e1a119732d)
+
+store에 있는 데이터를 불러올때 loop 오류 발생
+
+
+// 해결법
+![스크린샷 2025-02-25 223748](https://github.com/user-attachments/assets/d6859a31-77d0-4210-a1d7-1f45f190c8fa)
+
+useMemo를 통해 반복 계산 / 재렌더링이 되지않는것을 확인해 최적화 성공
+
+
+
+//legacy
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
