@@ -6,6 +6,8 @@
 ![스크린샷 2025-02-25 221416](https://github.com/user-attachments/assets/22abf968-2c4e-450c-9129-47e1a119732d)
 
 store에 있는 데이터를 불러올때 loop 오류 발생
+
+
 // 해결법
 ![스크린샷 2025-02-25 223748](https://github.com/user-attachments/assets/d6859a31-77d0-4210-a1d7-1f45f190c8fa)
 
