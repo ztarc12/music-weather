@@ -8,7 +8,7 @@ export function getWeatherQuery(weathercode) {
   } else if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(weathercode)) {
     return 'rainy'
   } else if ([71, 73, 75, 85, 86].includes(weathercode)) {
-    return 'showy'
+    return 'winter snow'
   } else if ([95, 96, 99].includes(weathercode)) {
     return 'thunderstorm'    
   } else {

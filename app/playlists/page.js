@@ -10,8 +10,6 @@ export default function PlaylistsPage() {
     () => (state) => ({playlists: state.playlists}), []
   )
   const { playlists } = useWeatherSpotifyStore(useShallow(playlistsData)) || { items: []};
-  // console.log("playlists from store:", playlists);
-  // console.log(playlists)
 
   return (
     <div className="main-cont detail">

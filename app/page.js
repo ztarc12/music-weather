@@ -10,8 +10,6 @@ import { useWeather } from "@/hooks/useWeather";
 import { useWeatherSpotifyStore } from "@/store/useWeatherSpotifyStore";
 import { useMemo } from "react";
 import { useShallow } from "zustand/shallow";
-
-
 export default function Home() {
   useWeather()
 
@@ -24,6 +22,7 @@ export default function Home() {
   
   const { weeklyForecast, weatherImage } = useWeatherSpotifyStore(useShallow(waetherState))
   useSpotifyMusic(weeklyForecast)
+  console.log(weatherImage)
 
   return (
     <div className="main-section">

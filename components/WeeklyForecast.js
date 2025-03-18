@@ -29,32 +29,12 @@ export default function WeeklyForecast({ forecast }) {
         <br/>
         날씨에 맞는 음악 추천해드릴게요
       </h2>
-      {/* <ul className="weather-container">
-        {
-          forecastArray.map((date, index)=>{
-            // console.log('날씨 코드', date)
-            return(
-              <li key={index} className="card-weather">
-                <div className="date">
-                  <span className="date-title">{date.time}</span>
-                </div>
-                <div><i className={`wi ${getWeatherIcon(date.weathercode)} icons`}/></div>
-                <div>
-                  <h3 className="temper">
-                    <span className="max-temper">{Math.round(date.temperature_2m_max)}</span> / <span className="min-temper">{Math.round(date.temperature_2m_min)}</span>
-                  </h3>
-                </div>
-              </li>
-            )
-          })
-        }
-      </ul> */}
       <Swiper
         className="weather-container"
-        slideToClickedSlide={true}  // 콘텐츠 클릭 시 해당 슬라이드로 이동
-        grabCursor={true}           // 마우스 커서 변경 (드래그 가능하다는 힌트)
+        slideToClickedSlide={true}
+        grabCursor={true}
         spaceBetween={10}
-        slidesPerView={4}           // 기본 슬라이드 개수 (원하는 대로 조정)
+        slidesPerView={4} 
         breakpoints={{
           500: {
             slidesPerView: 4,
@@ -75,8 +55,7 @@ export default function WeeklyForecast({ forecast }) {
         }}
       >
         {forecastArray.map((date, index) => (
-          <SwiperSlide key={index}>
-            <div className="card-weather">
+          <SwiperSlide key={index} className="card-weather">
               <div className="date">
                 <span className="date-title">{date.time}</span>
               </div>
@@ -89,7 +68,6 @@ export default function WeeklyForecast({ forecast }) {
                   <span className="min-temper">{Math.round(date.temperature_2m_min)}</span>
                 </h3>
               </div>
-            </div>
           </SwiperSlide>
         ))}
       </Swiper>

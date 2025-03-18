@@ -1,10 +1,7 @@
-import { faClose, faMinus, faPlay } from "@fortawesome/free-solid-svg-icons"
+import { faMinus, faPlay } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default function Playerlist({ playerPlaylist, playingTrack, playingAlbum, removeTrackPlaylist, setPlayingTrack }) {
-  console.log('플레이어플레이리스트', playerPlaylist)
-  console.log('플레잉트랙', playingTrack)
-  console.log('플레잉앨범', playingAlbum)
   return (
     <div className="playerlist" >
       <div className="playerlist-bg" style={{backgroundImage: `url(${playingTrack.album.images[0].url})`}}>

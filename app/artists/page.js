@@ -10,13 +10,10 @@ export default function ArtistPage() {
     () => (state) => ({artists: state.artists}), []
   )
   const { artists } = useWeatherSpotifyStore(useShallow(artistsData));
-  console.log("artists from store:", artists);
-  console.log(artists)
 
   return (
     <div className="main-cont detail">
       <h1>아티스트</h1>
-      {/* <h2>{albums[0].name}</h2> */}
       <ul className="detail-cont">
         {artists.map((item)=>{
           return (

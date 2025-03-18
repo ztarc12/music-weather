@@ -14,10 +14,8 @@ export default function AlbumsPage() {
   return (
     <div className="main-cont detail">
       <h1>앨범</h1>
-      {/* <h2>{albums[0].name}</h2> */}
       <ul className="detail-cont">
         {albums.map((item)=>{
-          console.log('앨범데이터',item)
           return (
             <Link key={item.id} href={`albums/detail/${item.id}`}>
               <li className="">

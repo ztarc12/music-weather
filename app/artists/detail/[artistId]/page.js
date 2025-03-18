@@ -9,12 +9,7 @@ import { useShallow } from "zustand/shallow";
 
 export default function DetailArtists() {
   const { artistId } = useParams();
-  // console.log('아티스트아디',artistId)
   const { data, loading, error } = useDetailSpotify(artistId, "artist");
-  // console.log("트랙", data);
-  // console.log('트랙안에 트랙', data.tracks)
-  // const artistPlaylists = data?.playlist.filter(item => item !== null) || []
-  // console.log('필터된플레이리스트', artistPlaylists)
   const artistsState = useMemo(
     () => (state) => ({
       artists: state.artists,
@@ -24,11 +19,8 @@ export default function DetailArtists() {
   );
 
   const { artists, setSelectAlbum } = useWeatherSpotifyStore(useShallow(artistsState));
-  // console.log('아티스트',artists)
   const artistArray = Array.isArray(artists) ? artists : (artists?.items ?? [])
   const artistsDetail = artistArray.find((p) => p.id === artistId);
-  // const artistsDetail = artists.find((p) => p.id === artistId);
-  // console.log("상세아티스트", artistsDetail);
   useEffect(()=>{
     if(data?.albums) {
       setSelectAlbum(data.albums)

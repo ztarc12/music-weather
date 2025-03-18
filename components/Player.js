@@ -13,7 +13,6 @@ export default function Player(){
   const [ player, setPlayer ] = useState(null)
   const [ prograss, setPrograss ] = useState(0)
   const [ openList, setOpenList] = useState(false)
-  // console.log('플레이어앨범', playingAlbum)
   const opts = {
     height: '50',
     width: '240',
@@ -94,7 +93,6 @@ export default function Player(){
           {playingTrack ? (
             <div className="playing-info">
               <div className="playing-img">
-                {/* <img src={playingTrack.album.images[0].url}/> */}
                 {
                   playingTrack?.album?.images?.[0]?.url ? (
                     <img src={playingTrack.album.images[0].url}/>

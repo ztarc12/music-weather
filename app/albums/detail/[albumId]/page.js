@@ -11,11 +11,7 @@ import { useShallow } from "zustand/shallow";
 
 export default function DetailAlbums() {
   const { albumId } = useParams();
-  // console.log('앨범아디',albumId)
   const { data, loading, error } = useDetailSpotify(albumId, "album");
-  // console.log("트랙", data);
-  // console.log('data상세',data.items)
-  // console.log('트랙안에 트랙', data.tracks)
   const { playTrack, addTrack, albumPlayTrack } = useTrackPlayer()
 
   const albumsState = useMemo(
@@ -35,7 +31,7 @@ export default function DetailAlbums() {
   if (!data) return <p>데이터를 찾을수 없습니다.</p>;
   return (
     <div className="main-cont detail pos-r">
-      <div className="detail-album-bg" style={{height: '30vh' ,backgroundImage: `url(${albumsDetail.images[0].url})`, backgroundSize: 'cover', backgroundPosition: 'center',}}></div>
+      <div className="detail-album-bg" style={{width: '100%',height: '30vh' ,backgroundImage: `url(${albumsDetail.images[0].url})`, backgroundSize: 'cover', backgroundPosition: 'center',}}></div>
       <h1>앨범</h1>
         <div className="info-box">
           <div className="image-flex">
@@ -62,7 +58,6 @@ export default function DetailAlbums() {
         </div>
         <ul className="track-box">
           {data?.items.map((item)=>{
-            // console.log(item)
             return(
               <li key={item.id} className="track">
                 <img src={albumsDetail.images?.[0].url} />

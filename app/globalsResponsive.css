@@ -28,5 +28,80 @@
   .info-box {
     flex-direction: column;
   }
-  
+  .playerlist-inner {
+    flex-direction: column;
+  }
+  .playerlist-inner>div {
+    width: 100%;
+  }
+  .playerlist-box {
+    margin-top: 1rem;
+  }
+  .playerlist-box>h2 {
+    text-align: center;
+  }
+  .playerlist-img>img {
+    width: 10rem;
+  }
+  .playerlist-list {
+    height: 220px;
+  }
+}
+@media (max-width: 499.98px) {
+  .player-inner {
+    justify-content: space-between;
+  }
+  .playing-info {
+    width: 100%;
+    padding: 0 10px;
+  }
+  .playing-img>img {
+    padding: 0;
+  }
+}
+@media (max-width: 399.98px) {
+  .menu-box>li {
+    margin: 0.8rem
+  }
+  .menu-box>li>a {
+    font-size: 0.9rem;
+  }
+  .content-title {
+    font-size: 1.2rem;
+  }
+  .card-weather {
+    /* min-width: 80px; */
+    flex: 1 1 100px;
+  }
+  .main-cont>h1 {
+    font-size: 1.2rem;
+    margin: 1.2rem 0;
+  }
+  .detail-cont-name {
+    font-size: 1rem;
+  }
+  .artist-albums-box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 1rem;
+  }
+  .artist-albums>img {
+    max-width: 9rem;
+  }
+  .playing-img>img {
+    width: 3.5rem;
+  }
+  .title-name>h3 {
+    font-size: 0.8rem;
+  }
+  .playerlist-inner>div>h2 {
+    font-size: 1.2rem;
+  }
+  .playerlist-list>li>span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+  }
 }

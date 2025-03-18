@@ -51,7 +51,6 @@ export default function WeatherPlaylist({ forecast }){
         }}>
         {currentplaylistsItems.map((item)=>{
             if(!item) return null ;
-            // console.log(item)
             return(
               <SwiperSlide key={item.id} className="card-playlist">
                 <Link href={`/playlists/detail/${item.id}`}>

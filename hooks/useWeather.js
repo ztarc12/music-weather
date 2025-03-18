@@ -8,10 +8,8 @@ import { useEffect } from "react";
 
 export function useWeather(){
   const { weeklyForecast, weatherImage, setWeeklyForecast, setWeatherImage } = useWeatherSpotifyStore()
-  // console.log("로드된 날씨 코드",weeklyForecast)
 
   useEffect(()=>{
-    // if (weeklyForecast || weatherImage) return;
 
       async function loadForecast(extraDays = 0) {
         try {
@@ -22,12 +20,10 @@ export function useWeather(){
           }
           const data = await res.json()
           if(data && data.daily) {
-            // console.log('날씨데이터',data)
             setWeeklyForecast(data.daily)
             const filteredData = filterForecast(data.daily)
 
             if (filteredData.needMoreData) {
-              // console.log('추가 데이터 요청 시작')
               await loadForecast(filteredData.needMoreData)
             } else {
               // console.log('10개 데이터 확보 완료')

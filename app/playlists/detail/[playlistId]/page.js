@@ -16,7 +16,7 @@ export default function DetailPlaylists() {
   if (!playlistId) return <p>잘못된 접근입니다.</p>;
 
   const { data, loading, error } = useDetailSpotify(playlistId, 'playlist');
-  // console.log('데이터',data)
+  
   const { playTrack, addTrack } = useTrackPlayer()
   const playlistState = useMemo(
     () => (state) => ({
@@ -26,11 +26,9 @@ export default function DetailPlaylists() {
   );
 
   const { playlists } = useWeatherSpotifyStore(useShallow(playlistState));
-  // console.log('플레이리스트',playlists)
+
   const playlistArray = Array.isArray(playlists) ? playlists : (playlists?.items ?? [])
   const playlistDetail = playlistArray.find((p) => p?.id === playlistId) || null;
-  // const playlistDetail = (playlists?.items ?? []).find((p) => p?.id === playlistId) || null;
-  // console.log('플레이리스트 디테일',playlistDetail)
 
   
 
