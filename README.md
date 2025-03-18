@@ -13,6 +13,15 @@ store에 있는 데이터를 불러올때 loop 오류 발생
 
 useMemo를 통해 반복 계산 / 재렌더링이 되지않는것을 확인해 최적화 성공
 
+배포 후 이슈
+![image](https://github.com/user-attachments/assets/65ad6cf3-c3a2-44fa-a6c1-86f369852e1a)
+오류는 클라이언트 컴포넌트 랜더링 시 오류로 보여짐
+
+![image](https://github.com/user-attachments/assets/fc54a65e-cc05-4d9f-a426-5c576622de3c)
+예외처리를 위해 commponents 폴더 내부에 파일 생성
+
+
+
 
 
 //legacy
