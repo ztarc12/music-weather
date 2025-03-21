@@ -642,3 +642,27 @@ h1 {
   top: 0;
   right: 0;
 }
+
+/* Skeleton */
+
+.skeleton-bg {
+  height: 40vh;
+  /* background: rgba(255,255,255,0.2); */
+  
+}
+.skeleton-main-cont {
+  margin: 1rem;
+}
+.dummy-list {
+  display: flex;
+  gap: 16px;
+}
+.test {
+  background: rgba(255,255,255,0.2);
+  /* padding: 1rem;
+  margin: 1rem; */
+  width: 150px;
+  height: 150px;
+  min-width: 100px;
+  border-radius: 8px;
+}
