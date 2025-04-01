@@ -14,6 +14,8 @@ export function useWeather(){
       async function loadForecast(extraDays = 0) {
         try {
           const { latitude, longitude } = await getUserLocation()
+          console.log(latitude)
+          console.log(longitude)
           const res = await fetch(`/api/forecast?latitude=${latitude}&longitude=${longitude}&days=${7 + extraDays}`)
           if (!res.ok) {
             throw new Error('API 요청 실패')

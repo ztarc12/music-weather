@@ -32,7 +32,17 @@ export default function HomeContent() {
   },[])
 
   if(loading) {
-    return <SkeletonMain/>
+    return (
+      <div className="main-section">
+      <div style={{height: '40vh'}}>
+        <div className="">
+          <div className="main-cont">
+            <SkeletonMain/>
+          </div>
+        </div>
+      </div>
+    </div>
+    )
   }
   return (
     <div className="main-section">

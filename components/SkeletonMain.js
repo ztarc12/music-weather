@@ -7,7 +7,7 @@ export default function SkeletonMain() {
   return (
     <div className="main-section">
       <div className="skeleton-bg">
-        <div className="bg-cover">
+        <div className="bg-cover-none">
           <div className="main-cont skeleton-main-cont">
             <div className="weather-cont">
               <h2 className="content-title">

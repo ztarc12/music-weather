@@ -1,4 +1,5 @@
 import axios from "axios"
+import https from "https"
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url)
@@ -14,7 +15,9 @@ export async function GET(req) {
   }
 
   try {
+    const httpsAgent = new https.Agent({ keepAlive: true })
     const response = await axios.get('https://api.open-meteo.com/v1/forecast', {
+      httpsAgent,
       params: {
         latitude,
         longitude,
